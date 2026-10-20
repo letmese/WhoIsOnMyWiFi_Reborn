@@ -16,3 +16,7 @@ publish/
 ## Database and local logs
 *.db
 *.log
+
+## Test Artifacts
+videos/
+*.mp4

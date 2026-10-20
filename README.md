@@ -19,7 +19,23 @@
 
 ---
 
-## ✨ Features & Architecture
+## 📱 Mobile Companion App Preview (Live Firebase Test Lab Pixel 5 Screenshots)
+
+<div align="center">
+  <img src="screenshots/0.png" width="220" alt="Dashboard" />
+  <img src="screenshots/1.png" width="220" alt="Subnet Scanner" />
+  <img src="screenshots/2.png" width="220" alt="Device List" />
+  <img src="screenshots/3.png" width="220" alt="Hardware Details" />
+</div>
+
+<div align="center">
+  <img src="screenshots/4.png" width="220" alt="Port Audit" />
+  <img src="screenshots/5.png" width="220" alt="Network Telemetry" />
+  <img src="screenshots/6.png" width="220" alt="Security Alerts" />
+  <img src="screenshots/10.png" width="220" alt="Settings & OUI" />
+</div>
+
+---
 
 | Feature | Details |
 | :--- | :--- |
