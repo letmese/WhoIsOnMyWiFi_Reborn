@@ -1,0 +1,18 @@
+## Build and Publish outputs
+bin/
+obj/
+publish/
+*.exe
+*.dll
+*.pdb
+*.runtimeconfig.json
+*.deps.json
+
+## Visual Studio
+.vs/
+*.user
+*.suo
+
+## Database and local logs
+*.db
+*.log

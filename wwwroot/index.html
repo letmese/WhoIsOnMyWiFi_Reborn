@@ -1,0 +1,2160 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Who Is On My WiFi Reborn</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          colors: {
+            surface: "rgb(var(--color-surface) / <alpha-value>)",
+            "surface-dim": "rgb(var(--color-surface-dim) / <alpha-value>)",
+            "surface-lowest": "rgb(var(--color-surface-lowest) / <alpha-value>)",
+            "surface-low": "rgb(var(--color-surface-low) / <alpha-value>)",
+            "surface-card": "rgb(var(--color-surface-card) / <alpha-value>)",
+            "surface-high": "rgb(var(--color-surface-high) / <alpha-value>)",
+            "surface-highest": "rgb(var(--color-surface-highest) / <alpha-value>)",
+            primary: "rgb(var(--color-primary) / <alpha-value>)",
+            "primary-dim": "rgb(var(--color-primary-dim) / <alpha-value>)",
+            secondary: "rgb(var(--color-secondary) / <alpha-value>)",
+            "secondary-dim": "rgb(var(--color-secondary-dim) / <alpha-value>)",
+            danger: "rgb(var(--color-danger) / <alpha-value>)",
+            "danger-dim": "rgb(var(--color-danger-dim) / <alpha-value>)",
+            warning: "rgb(var(--color-warning) / <alpha-value>)",
+            outline: "rgb(var(--color-outline) / <alpha-value>)",
+            "outline-dim": "var(--color-outline-dim)",
+            "on-surface": "rgb(var(--color-on-surface) / <alpha-value>)",
+            "on-surface-variant": "rgb(var(--color-on-surface-variant) / <alpha-value>)",
+          },
+          fontFamily: {
+            sans: ["Geist", "Segoe UI Variable", "Segoe UI", "-apple-system", "sans-serif"],
+            mono: ["JetBrains Mono", "Consolas", "Courier New", "monospace"],
+          }
+        }
+      }
+    };
+  </script>
+  <style>
+    /* 5 Handcrafted High-Legibility Visual Themes */
+    :root, .theme-slate {
+      --color-surface: 15 23 42;
+      --color-surface-dim: 2 6 23;
+      --color-surface-lowest: 9 13 22;
+      --color-surface-low: 30 41 59;
+      --color-surface-card: 30 41 59;
+      --color-surface-high: 51 65 85;
+      --color-surface-highest: 71 85 105;
+      --color-primary: 56 189 248;
+      --color-primary-dim: 186 230 253;
+      --color-secondary: 52 211 153;
+      --color-secondary-dim: 167 243 208;
+      --color-danger: 248 113 113;
+      --color-danger-dim: 254 202 202;
+      --color-warning: 251 191 36;
+      --color-outline: 100 116 139;
+      --color-outline-dim: rgba(255, 255, 255, 0.16);
+      --color-on-surface: 248 250 252;
+      --color-on-surface-variant: 203 213 225;
+      --glass-card-bg: rgba(30, 41, 59, 0.90);
+      --glass-border: rgba(255, 255, 255, 0.16);
+      --glass-panel-bg: rgba(15, 23, 42, 0.96);
+      --scroll-track: rgba(15, 23, 42, 0.85);
+      --scroll-thumb: rgba(255, 255, 255, 0.35);
+      --scroll-thumb-hover: rgba(255, 255, 255, 0.55);
+    }
+
+    .theme-light {
+      --color-surface: 241 245 249;
+      --color-surface-dim: 226 232 240;
+      --color-surface-lowest: 203 213 225;
+      --color-surface-low: 255 255 255;
+      --color-surface-card: 255 255 255;
+      --color-surface-high: 241 245 249;
+      --color-surface-highest: 226 232 240;
+      --color-primary: 37 99 235;
+      --color-primary-dim: 29 78 216;
+      --color-secondary: 5 150 105;
+      --color-secondary-dim: 4 120 87;
+      --color-danger: 220 38 38;
+      --color-danger-dim: 185 28 28;
+      --color-warning: 217 119 6;
+      --color-outline: 148 163 184;
+      --color-outline-dim: rgba(0, 0, 0, 0.14);
+      --color-on-surface: 15 23 42;
+      --color-on-surface-variant: 51 65 85;
+      --glass-card-bg: rgba(255, 255, 255, 0.96);
+      --glass-border: rgba(0, 0, 0, 0.14);
+      --glass-panel-bg: rgba(248, 250, 252, 0.98);
+      --scroll-track: rgba(241, 245, 249, 0.95);
+      --scroll-thumb: rgba(0, 0, 0, 0.3);
+      --scroll-thumb-hover: rgba(0, 0, 0, 0.5);
+    }
+
+    .theme-oled {
+      --color-surface: 0 0 0;
+      --color-surface-dim: 0 0 0;
+      --color-surface-lowest: 5 5 5;
+      --color-surface-low: 14 15 20;
+      --color-surface-card: 18 19 26;
+      --color-surface-high: 30 32 42;
+      --color-surface-highest: 45 48 62;
+      --color-primary: 6 182 212;
+      --color-primary-dim: 103 232 249;
+      --color-secondary: 16 185 129;
+      --color-secondary-dim: 110 231 183;
+      --color-danger: 244 63 94;
+      --color-danger-dim: 253 164 175;
+      --color-warning: 245 158 11;
+      --color-outline: 113 113 122;
+      --color-outline-dim: rgba(255, 255, 255, 0.18);
+      --color-on-surface: 255 255 255;
+      --color-on-surface-variant: 228 228 231;
+      --glass-card-bg: rgba(18, 19, 26, 0.92);
+      --glass-border: rgba(255, 255, 255, 0.18);
+      --glass-panel-bg: rgba(0, 0, 0, 0.96);
+      --scroll-track: rgba(0, 0, 0, 0.85);
+      --scroll-thumb: rgba(255, 255, 255, 0.35);
+      --scroll-thumb-hover: rgba(255, 255, 255, 0.55);
+    }
+
+    .theme-ocean {
+      --color-surface: 11 25 44;
+      --color-surface-dim: 6 16 30;
+      --color-surface-lowest: 2 8 18;
+      --color-surface-low: 30 62 98;
+      --color-surface-card: 30 62 98;
+      --color-surface-high: 46 86 134;
+      --color-surface-highest: 65 115 176;
+      --color-primary: 0 210 106;
+      --color-primary-dim: 120 255 189;
+      --color-secondary: 0 168 255;
+      --color-secondary-dim: 140 222 255;
+      --color-danger: 255 75 75;
+      --color-danger-dim: 255 170 170;
+      --color-warning: 255 154 0;
+      --color-outline: 73 86 112;
+      --color-outline-dim: rgba(255, 255, 255, 0.18);
+      --color-on-surface: 255 255 255;
+      --color-on-surface-variant: 212 231 254;
+      --glass-card-bg: rgba(30, 62, 98, 0.90);
+      --glass-border: rgba(255, 255, 255, 0.18);
+      --glass-panel-bg: rgba(11, 25, 44, 0.96);
+      --scroll-track: rgba(11, 25, 44, 0.85);
+      --scroll-thumb: rgba(255, 255, 255, 0.35);
+      --scroll-thumb-hover: rgba(255, 255, 255, 0.55);
+    }
+
+    .theme-charcoal {
+      --color-surface: 24 24 27;
+      --color-surface-dim: 15 15 17;
+      --color-surface-lowest: 9 9 11;
+      --color-surface-low: 39 39 42;
+      --color-surface-card: 39 39 42;
+      --color-surface-high: 63 63 70;
+      --color-surface-highest: 82 82 91;
+      --color-primary: 129 140 248;
+      --color-primary-dim: 199 210 254;
+      --color-secondary: 34 197 94;
+      --color-secondary-dim: 134 239 172;
+      --color-danger: 239 68 68;
+      --color-danger-dim: 254 202 202;
+      --color-warning: 245 158 11;
+      --color-outline: 113 113 122;
+      --color-outline-dim: rgba(255, 255, 255, 0.16);
+      --color-on-surface: 250 250 250;
+      --color-on-surface-variant: 212 212 216;
+      --glass-card-bg: rgba(39, 39, 42, 0.90);
+      --glass-border: rgba(255, 255, 255, 0.16);
+      --glass-panel-bg: rgba(24, 24, 27, 0.96);
+      --scroll-track: rgba(24, 24, 27, 0.85);
+      --scroll-thumb: rgba(255, 255, 255, 0.35);
+      --scroll-thumb-hover: rgba(255, 255, 255, 0.55);
+    }
+
+    body {
+      user-select: none;
+      -webkit-user-select: none;
+      font-family: 'Geist', 'Segoe UI Variable', 'Segoe UI', sans-serif;
+    }
+    .titlebar-drag {
+      -webkit-app-region: drag;
+      app-region: drag;
+    }
+    .titlebar-nodrag {
+      -webkit-app-region: no-drag;
+      app-region: no-drag;
+    }
+    /* Custom scrollbar */
+    ::-webkit-scrollbar {
+      width: 8px;
+      height: 8px;
+    }
+    ::-webkit-scrollbar-track {
+      background: var(--scroll-track);
+    }
+    ::-webkit-scrollbar-thumb {
+      background: var(--scroll-thumb);
+      border-radius: 9999px;
+      border: 2px solid var(--scroll-track);
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: var(--scroll-thumb-hover);
+    }
+    @keyframes pulse-radar {
+      0% { transform: scale(0.95); opacity: 0.8; }
+      50% { transform: scale(1.15); opacity: 0.2; }
+      100% { transform: scale(0.95); opacity: 0.8; }
+    }
+    .radar-pulse {
+      animation: pulse-radar 2.4s infinite ease-in-out;
+    }
+    .glass-card {
+      background: var(--glass-card-bg);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border: 1px solid var(--glass-border);
+    }
+    .glass-panel {
+      background: var(--glass-panel-bg);
+      backdrop-filter: blur(24px);
+      -webkit-backdrop-filter: blur(24px);
+    }
+  </style>
+</head>
+<body class="bg-surface text-on-surface h-screen w-screen overflow-hidden flex flex-col antialiased">
+
+  <!-- Windows 11 Fluent Custom Titlebar -->
+  <header onmousedown="handleTitlebarMouseDown(event)" ondblclick="handleTitlebarDblClick(event)" class="h-9 bg-surface-lowest border-b border-outline-dim flex items-center justify-between px-3 select-none z-50 titlebar-drag">
+    <div class="flex items-center gap-2.5">
+      <div class="w-4 h-4 text-primary flex items-center justify-center">
+        <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+          <path d="m9 12 2 2 4-4"/>
+        </svg>
+      </div>
+      <span class="text-xs font-semibold tracking-wide text-on-surface">Who Is On My WiFi <span class="text-[10px] uppercase font-mono px-1.5 py-0.5 rounded bg-primary/20 text-primary border border-primary/30">PRO 64-BIT</span></span>
+    </div>
+
+    <!-- Center Subnet Live Status Pill -->
+    <div class="flex items-center gap-2">
+      <span class="flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-secondary/15 border border-secondary/35 text-[11px] font-mono text-secondary font-semibold">
+        <span class="w-1.5 h-1.5 rounded-full bg-secondary animate-pulse"></span>
+        <span id="titleSubnet">Subnet: 192.168.1.0/24 Online</span>
+        <span class="text-on-surface-variant font-normal">|</span>
+        <span id="titleAdapter">Wi-Fi 6 Connected</span>
+      </span>
+    </div>
+
+    <!-- Right Controls: Theme Selector + Windows Caption Controls -->
+    <div class="flex items-center gap-2 titlebar-nodrag">
+      <!-- Quick Visual Theme Dropdown -->
+      <div class="relative">
+        <button id="btnThemeDropdown" onclick="toggleThemeMenu(event)" class="flex items-center gap-1.5 px-2.5 py-0.5 rounded-md bg-surface-card hover:bg-surface-high border border-outline-dim text-xs font-semibold text-on-surface transition-all shadow-sm cursor-pointer" title="Switch Visual Theme / Coloring">
+          <span id="themeCurrentIcon" class="text-xs">🌙</span>
+          <span id="themeCurrentLabel" class="text-[11px] font-medium hidden sm:inline">Theme: Slate</span>
+          <svg class="w-3 h-3 text-on-surface-variant" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m6 9 6 6 6-6"/></svg>
+        </button>
+
+        <!-- Dropdown Menu -->
+        <div id="themeMenu" class="hidden absolute right-0 mt-1.5 w-60 rounded-xl bg-surface-card border border-outline-dim shadow-2xl p-1.5 flex flex-col gap-1 z-50">
+          <div class="px-2.5 py-1 text-[10px] font-bold uppercase tracking-wider text-on-surface-variant border-b border-outline-dim/40 flex items-center justify-between">
+            <span>Visual Theme</span>
+            <span class="text-[9px] font-mono opacity-80">Instant Preview</span>
+          </div>
+
+          <button onclick="setTheme('slate')" class="theme-option-btn w-full text-left px-2.5 py-1.5 rounded-lg flex items-center justify-between hover:bg-surface-high text-xs font-medium text-on-surface transition-colors cursor-pointer" data-theme="slate">
+            <div class="flex items-center gap-2">
+              <span class="w-3.5 h-3.5 rounded-full bg-slate-900 border border-sky-400 flex-shrink-0"></span>
+              <span>Midnight Slate <span class="text-[10px] text-primary font-bold">(Default)</span></span>
+            </div>
+            <span class="theme-check text-primary font-bold hidden">✓</span>
+          </button>
+
+          <button onclick="setTheme('light')" class="theme-option-btn w-full text-left px-2.5 py-1.5 rounded-lg flex items-center justify-between hover:bg-surface-high text-xs font-medium text-on-surface transition-colors cursor-pointer" data-theme="light">
+            <div class="flex items-center gap-2">
+              <span class="w-3.5 h-3.5 rounded-full bg-white border border-slate-400 flex-shrink-0"></span>
+              <span>Fluent Light <span class="text-[10px] text-on-surface-variant font-semibold">(Crisp Day)</span></span>
+            </div>
+            <span class="theme-check text-primary font-bold hidden">✓</span>
+          </button>
+
+          <button onclick="setTheme('oled')" class="theme-option-btn w-full text-left px-2.5 py-1.5 rounded-lg flex items-center justify-between hover:bg-surface-high text-xs font-medium text-on-surface transition-colors cursor-pointer" data-theme="oled">
+            <div class="flex items-center gap-2">
+              <span class="w-3.5 h-3.5 rounded-full bg-black border border-cyan-400 flex-shrink-0"></span>
+              <span>OLED Pitch Black <span class="text-[10px] text-cyan-400 font-bold">(Neon)</span></span>
+            </div>
+            <span class="theme-check text-primary font-bold hidden">✓</span>
+          </button>
+
+          <button onclick="setTheme('ocean')" class="theme-option-btn w-full text-left px-2.5 py-1.5 rounded-lg flex items-center justify-between hover:bg-surface-high text-xs font-medium text-on-surface transition-colors cursor-pointer" data-theme="ocean">
+            <div class="flex items-center gap-2">
+              <span class="w-3.5 h-3.5 rounded-full bg-[#0b192c] border border-emerald-400 flex-shrink-0"></span>
+              <span>Ocean Cobalt <span class="text-[10px] text-emerald-400 font-bold">(Deep Navy)</span></span>
+            </div>
+            <span class="theme-check text-primary font-bold hidden">✓</span>
+          </button>
+
+          <button onclick="setTheme('charcoal')" class="theme-option-btn w-full text-left px-2.5 py-1.5 rounded-lg flex items-center justify-between hover:bg-surface-high text-xs font-medium text-on-surface transition-colors cursor-pointer" data-theme="charcoal">
+            <div class="flex items-center gap-2">
+              <span class="w-3.5 h-3.5 rounded-full bg-zinc-800 border border-indigo-400 flex-shrink-0"></span>
+              <span>Refined Charcoal <span class="text-[10px] text-indigo-400 font-bold">(Zinc)</span></span>
+            </div>
+            <span class="theme-check text-primary font-bold hidden">✓</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Window Caption Buttons -->
+      <div class="flex items-center gap-1">
+        <button onclick="sendAction('window_minimize')" title="Minimize" class="w-7 h-6 flex items-center justify-center rounded hover:bg-surface-high text-on-surface-variant hover:text-on-surface transition-colors">
+          <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14"/></svg>
+        </button>
+        <button onclick="sendAction('window_maximize')" title="Maximize / Restore" class="w-7 h-6 flex items-center justify-center rounded hover:bg-surface-high text-on-surface-variant hover:text-on-surface transition-colors">
+          <svg class="w-3 h-3" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/></svg>
+        </button>
+        <button onclick="sendAction('window_close')" title="Close" class="w-7 h-6 flex items-center justify-center rounded hover:bg-danger/80 hover:text-white text-on-surface-variant transition-colors">
+          <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6 6 18M6 6l12 12"/></svg>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Body Workspace -->
+  <div class="flex flex-1 overflow-hidden relative min-h-0">
+
+    <!-- Left Navigation Sidebar -->
+    <aside class="w-60 bg-surface-low border-r border-outline-dim flex flex-col justify-between p-3 select-none flex-shrink-0 z-20 overflow-y-auto min-h-0">
+      <div class="flex flex-col gap-3">
+        <!-- App Profile Header -->
+        <div class="flex items-center gap-2.5 px-2 py-1.5 rounded-lg bg-surface-card border border-outline-dim">
+          <div class="w-8 h-8 rounded-md bg-primary/15 border border-primary/30 flex items-center justify-center text-primary flex-shrink-0">
+            <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <circle cx="12" cy="12" r="10"/>
+              <path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20"/>
+              <path d="M2 12h20"/>
+            </svg>
+          </div>
+          <div class="flex flex-col min-w-0">
+            <span class="text-xs font-semibold text-on-surface truncate">Who Is On My WiFi</span>
+            <span id="sideNicName" class="text-[11px] font-mono text-on-surface-variant truncate">NIC: Gigabit Ethernet</span>
+          </div>
+        </div>
+
+        <!-- Primary Instant Scan Button -->
+        <button id="btnInstantScan" onclick="triggerScan()" class="w-full bg-primary hover:bg-blue-600 active:scale-[0.98] text-white font-medium text-xs py-2 px-3 rounded-lg flex items-center justify-center gap-2 shadow-lg shadow-primary/20 transition-all">
+          <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+          <span id="instantScanText">Instant Scan</span>
+        </button>
+
+        <!-- Navigation Tabs -->
+        <nav class="flex flex-col gap-1">
+          <button onclick="setActiveTab('dashboard')" id="tab_dashboard" class="nav-item w-full text-left bg-surface-high text-primary font-medium text-xs rounded-lg border-l-2 border-primary px-3 py-2 flex items-center justify-between transition-colors">
+            <div class="flex items-center gap-2.5">
+              <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M12 3a9 9 0 0 1 9 9"/><path d="M12 12 18 6"/></svg>
+              <span>Radar Sweep</span>
+            </div>
+            <span class="w-1.5 h-1.5 rounded-full bg-primary"></span>
+          </button>
+
+          <button onclick="setActiveTab('devices')" id="tab_devices" class="nav-item w-full text-left text-on-surface-variant hover:text-on-surface hover:bg-surface-high/60 font-medium text-xs rounded-lg px-3 py-2 flex items-center justify-between transition-colors">
+            <div class="flex items-center gap-2.5">
+              <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8"/><path d="M12 17v4"/></svg>
+              <span>Device Inventory</span>
+            </div>
+            <span id="badgeTotalDevices" class="text-[10px] font-mono px-1.5 py-0.2 rounded bg-surface-card border border-outline-dim text-on-surface-variant">0</span>
+          </button>
+
+          <button onclick="setActiveTab('alerts')" id="tab_alerts" class="nav-item w-full text-left text-on-surface-variant hover:text-on-surface hover:bg-surface-high/60 font-medium text-xs rounded-lg px-3 py-2 flex items-center justify-between transition-colors">
+            <div class="flex items-center gap-2.5">
+              <svg class="w-4 h-4 text-danger" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3Z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+              <span>Intrusion Alerts</span>
+            </div>
+            <span id="badgeIntruders" class="text-[10px] font-mono px-1.5 py-0.2 rounded bg-danger/20 border border-danger/40 text-danger font-semibold">0</span>
+          </button>
+
+          <button onclick="openSubnetModal()" class="w-full text-left text-on-surface-variant hover:text-on-surface hover:bg-surface-high/60 font-medium text-xs rounded-lg px-3 py-2 flex items-center gap-2.5 transition-colors">
+            <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="16" y="16" width="6" height="6" rx="1"/><rect x="2" y="16" width="6" height="6" rx="1"/><rect x="9" y="2" width="6" height="6" rx="1"/><path d="M5 16v-3a1 1 0 0 1 1-1h12a1 1 0 0 1 1 1v3"/><path d="M12 12V8"/></svg>
+            <span>Subnet & Ranges</span>
+          </button>
+
+          <button onclick="openLogsModal()" class="w-full text-left text-on-surface-variant hover:text-on-surface hover:bg-surface-high/60 font-medium text-xs rounded-lg px-3 py-2 flex items-center gap-2.5 transition-colors">
+            <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="4 17 10 11 4 5"/><line x1="12" y1="19" x2="20" y2="19"/></svg>
+            <span>Scan & Block Logs</span>
+          </button>
+
+          <button onclick="openImportModal()" class="w-full text-left text-on-surface-variant hover:text-on-surface hover:bg-surface-high/60 font-medium text-xs rounded-lg px-3 py-2 flex items-center gap-2.5 transition-colors">
+            <svg class="w-4 h-4 text-secondary" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+            <span>Import Backup (.wif)</span>
+          </button>
+        </nav>
+      </div>
+
+      <!-- Bottom Sidebar: Scan Mode & NIC Telemetry Widget -->
+      <div class="flex flex-col gap-2 pt-3 border-t border-outline-dim">
+        <!-- Continuous Scan Toggle Card -->
+        <div class="p-2 rounded-lg bg-surface-card border border-outline-dim flex flex-col gap-1.5">
+          <div class="flex items-center justify-between">
+            <span class="text-[11px] font-medium text-on-surface">Continuous Scan:</span>
+            <label class="relative inline-flex items-center cursor-pointer" title="Keep scanning continuously without waiting for intervals">
+              <input type="checkbox" id="chkContinuous" onchange="toggleContinuousScan(this.checked)" class="sr-only peer">
+              <div class="w-8 h-4 bg-surface-high peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:rounded-full after:h-3 after:w-3 after:transition-all peer-checked:bg-primary"></div>
+            </label>
+          </div>
+          <span class="text-[9px] text-on-surface-variant leading-tight">Zero interval, immediate back-to-back</span>
+        </div>
+
+        <!-- Auto-Scan Toggle Card -->
+        <div class="p-2 rounded-lg bg-surface-card border border-outline-dim flex flex-col gap-1.5">
+          <div class="flex items-center justify-between">
+            <span class="text-[11px] font-medium text-on-surface">Auto-scan:</span>
+            <!-- Modern Switch -->
+            <label class="relative inline-flex items-center cursor-pointer">
+              <input type="checkbox" id="chkAutoScan" onchange="toggleAutoScan(this.checked)" class="sr-only peer">
+              <div class="w-8 h-4 bg-surface-high peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:rounded-full after:h-3 after:w-3 after:transition-all peer-checked:bg-secondary"></div>
+            </label>
+          </div>
+          <div class="flex items-center justify-between text-[10px] font-mono">
+            <span id="lblNextScan" class="text-on-surface-variant truncate max-w-[130px]">Next in 05:00</span>
+            <span class="px-1 py-0.2 rounded bg-secondary/10 text-secondary border border-secondary/20 text-[9px]">Synced</span>
+          </div>
+        </div>
+
+        <!-- Adapter Hardware Specs -->
+        <div class="px-2 py-1.5 rounded-lg bg-surface-lowest/70 border border-outline-dim/60 text-[10px] font-mono flex flex-col gap-0.5 text-on-surface-variant">
+          <div class="flex justify-between items-center"><span class="text-on-surface">NIC:</span><span id="sideNicFull" class="truncate max-w-[130px]">Intel Wi-Fi 6E</span></div>
+          <div class="flex justify-between items-center"><span>Signal:</span><span id="sideSignal" class="text-secondary">-48 dBm (98%)</span></div>
+          <div class="flex justify-between items-center"><span>Gateway:</span><span id="sideGateway" class="text-on-surface font-semibold">192.168.1.1</span></div>
+        </div>
+
+        <!-- Settings Shortcut -->
+        <button onclick="openSettingsModal()" class="w-full py-1.5 px-2 rounded-lg hover:bg-surface-high/60 text-on-surface-variant hover:text-on-surface text-xs flex items-center justify-center gap-1.5 transition-colors">
+          <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12.22 2h-.44a2 2 0 0 0-2 2v.18a2 2 0 0 1-1 1.73l-.43.25a2 2 0 0 1-2 0l-.15-.08a2 2 0 0 0-2.73.73l-.22.38a2 2 0 0 0 .73 2.73l.15.1a2 2 0 0 1 1 1.72v.51a2 2 0 0 1-1 1.74l-.15.09a2 2 0 0 0-.73 2.73l.22.38a2 2 0 0 0 2.73.73l.15-.08a2 2 0 0 1 2 0l.43.25a2 2 0 0 1 1 1.73V20a2 2 0 0 0 2 2h.44a2 2 0 0 0 2-2v-.18a2 2 0 0 1 1-1.73l.43-.25a2 2 0 0 1 2 0l.15.08a2 2 0 0 0 2.73-.73l.22-.39a2 2 0 0 0-.73-2.73l-.15-.08a2 2 0 0 1-1-1.74v-.5a2 2 0 0 1 1-1.74l.15-.09a2 2 0 0 0 .73-2.73l-.22-.38a2 2 0 0 0-2.73-.73l-.15.08a2 2 0 0 1-2 0l-.43-.25a2 2 0 0 1-1-1.73V4a2 2 0 0 0-2-2z"/><circle cx="12" cy="12" r="3"/></svg>
+          <span>Preferences & Settings</span>
+        </button>
+      </div>
+    </aside>
+
+    <!-- Main Content Area -->
+    <main class="flex-1 bg-surface flex flex-col overflow-hidden relative min-h-0 min-w-0">
+
+      <!-- Top Toolbar Actions & Sweep Status -->
+      <section class="p-3 border-b border-outline-dim flex flex-wrap items-center justify-between gap-2.5 bg-surface-low/50">
+        <!-- Action Buttons -->
+        <div class="flex items-center gap-2 flex-wrap">
+          <button id="btnMainScan" onclick="triggerScan()" class="bg-primary hover:bg-blue-600 active:scale-95 text-white font-semibold text-xs py-2 px-4 rounded-lg flex items-center gap-2 shadow-md shadow-primary/20 transition-all">
+            <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+            <span id="lblScanAction">Scan Network</span>
+          </button>
+
+          <button id="btnMainStop" onclick="stopScan()" disabled class="bg-surface-card hover:bg-surface-high disabled:opacity-40 disabled:pointer-events-none text-on-surface font-medium text-xs py-2 px-3 rounded-lg border border-outline-dim flex items-center gap-1.5 transition-colors">
+            <svg class="w-3.5 h-3.5 text-danger" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="6" y="6" width="12" height="12" rx="1"/></svg>
+            <span>Stop Scan</span>
+          </button>
+
+          <!-- Continuous Mode Quick Toggle -->
+          <label class="flex items-center gap-1.5 cursor-pointer px-2.5 py-1.5 rounded-lg bg-surface-card hover:bg-surface-high border border-outline-dim text-xs font-medium transition-all" title="Repeat sweeps continuously with immediate back-to-back scans">
+            <input type="checkbox" id="chkContinuousToolbar" onchange="toggleContinuousScan(this.checked)" class="w-3.5 h-3.5 rounded text-primary bg-surface-lowest border-outline-dim focus:ring-0 cursor-pointer accent-primary">
+            <span class="text-[11px] text-on-surface font-semibold">Continuous</span>
+          </label>
+
+          <span class="h-4 w-px bg-outline-dim mx-0.5"></span>
+
+          <!-- Quick Sweep Status Pill -->
+          <div class="flex items-center gap-2 px-3 py-1.5 rounded-lg bg-surface-card border border-outline-dim">
+            <span id="scanStatusDot" class="w-2 h-2 rounded-full bg-secondary"></span>
+            <span id="scanStatusText" class="text-xs font-mono text-on-surface truncate max-w-[280px]">Quick ARP & ICMP Sweep: 100% Idle (Ready)</span>
+          </div>
+        </div>
+
+        <!-- Quick Utilities Group -->
+        <div class="flex items-center gap-2">
+          <button onclick="autoBlockAllIntruders()" class="px-3 py-1.5 rounded-lg bg-danger/15 hover:bg-danger/25 border border-danger/35 text-danger text-xs font-medium flex items-center gap-1.5 transition-colors" title="One-click isolate all unauthorized devices with Windows Firewall">
+            <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="4.93" y1="4.93" x2="19.07" y2="19.07"/></svg>
+            <span>Block Intruders</span>
+          </button>
+
+          <button onclick="sendAction('export_data')" class="px-3 py-1.5 rounded-lg bg-surface-card hover:bg-surface-high border border-outline-dim text-on-surface text-xs font-medium flex items-center gap-1.5 transition-colors" title="Backup database (.wif / .json)">
+            <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+            <span>Export / Backup</span>
+          </button>
+
+          <button onclick="openSubnetModal()" class="px-3 py-1.5 rounded-lg bg-surface-card hover:bg-surface-high border border-outline-dim text-on-surface text-xs font-medium flex items-center gap-1.5 transition-colors">
+            <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+            <span>Add Subnet</span>
+          </button>
+        </div>
+      </section>
+
+      <!-- Scrollable Dashboard Content (Works on any window size) -->
+      <div id="mainDashboardScroll" class="flex-1 overflow-y-auto p-4 flex flex-col gap-4 min-h-0 select-text">
+
+        <!-- Live Real-Time Scan Sweep Indicator Line (Shows active IP probed, count, % and live track) -->
+        <div id="bannerSweepProgress" class="hidden glass-card border-primary/50 bg-gradient-to-r from-primary/25 via-primary/10 to-transparent p-3 rounded-xl flex flex-col gap-2 shadow-lg shadow-primary/10 transition-all animate-in fade-in">
+          <div class="flex items-center justify-between flex-wrap gap-2 text-xs">
+            <div class="flex items-center gap-2.5">
+              <span class="w-2.5 h-2.5 rounded-full bg-primary animate-ping"></span>
+              <span class="font-bold text-white tracking-wide">Live Sweep in Progress:</span>
+              <span class="text-on-surface-variant font-mono">Probing device:</span>
+              <span id="scanCurrentIpBadge" class="font-mono font-bold text-white bg-primary/40 px-2.5 py-0.5 rounded border border-primary/60 animate-pulse text-xs">192.168.1.1</span>
+            </div>
+            <div class="flex items-center gap-2.5 font-mono text-[11px] text-on-surface-variant">
+              <span id="scanProbedCount" class="text-on-surface font-semibold">0 / 254 hosts</span>
+              <span>•</span>
+              <span id="scanFoundCount" class="text-secondary font-bold">0 active found</span>
+              <span>•</span>
+              <span id="scanPercentBadge" class="px-2 py-0.5 rounded bg-primary/25 text-primary border border-primary/40 font-bold">0%</span>
+            </div>
+          </div>
+          <div class="w-full bg-surface-lowest rounded-full h-2.5 overflow-hidden p-0.5 border border-outline-dim">
+            <div id="scanProgressBar" class="bg-gradient-to-r from-primary via-blue-400 to-secondary h-full rounded-full transition-all duration-150 ease-out" style="width: 0%"></div>
+          </div>
+        </div>
+
+        <!-- KPI Metric Overview Cards Row -->
+        <div class="grid grid-cols-2 md:grid-cols-5 gap-3">
+          <!-- Total Discovered -->
+          <div class="glass-card p-3 rounded-xl flex flex-col justify-between">
+            <div class="flex justify-between items-center text-on-surface-variant">
+              <span class="text-xs font-medium">Total Discovered</span>
+              <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="m4.93 4.93 4.24 4.24"/><path d="m14.83 9.17 4.24-4.24"/><path d="m14.83 14.83 4.24 4.24"/><path d="m9.17 14.83-4.24 4.24"/></svg>
+            </div>
+            <div class="my-1.5">
+              <span id="kpiTotal" class="text-2xl font-bold font-mono text-on-surface">0</span>
+              <span class="text-xs text-on-surface-variant ml-1">Devices</span>
+            </div>
+            <span class="text-[10px] text-on-surface-variant truncate">In local ARP cache</span>
+          </div>
+
+          <!-- Online Now -->
+          <div onclick="toggleOnlyLiveCard()" class="glass-card p-3 rounded-xl flex flex-col justify-between border-secondary/20 hover:border-secondary/60 cursor-pointer transition-all group" title="Click to filter live devices">
+            <div class="flex justify-between items-center text-on-surface-variant group-hover:text-secondary">
+              <span class="text-xs font-medium">Online Now</span>
+              <span class="w-2 h-2 rounded-full bg-secondary animate-pulse"></span>
+            </div>
+            <div class="my-1.5">
+              <span id="kpiOnline" class="text-2xl font-bold font-mono text-secondary">0</span>
+              <span class="text-xs text-secondary/80 ml-1">Active</span>
+            </div>
+            <div class="flex items-center justify-between text-[10px] text-secondary font-mono">
+              <span>+1 vs baseline</span>
+              <span class="underline text-[10px] opacity-75 group-hover:opacity-100">Toggle live</span>
+            </div>
+          </div>
+
+          <!-- Known & Trusted -->
+          <div class="glass-card p-3 rounded-xl flex flex-col justify-between">
+            <div class="flex justify-between items-center text-on-surface-variant">
+              <span class="text-xs font-medium">Known & Trusted</span>
+              <svg class="w-4 h-4 text-secondary" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+            </div>
+            <div class="my-1.5">
+              <span id="kpiKnown" class="text-2xl font-bold font-mono text-on-surface">0</span>
+              <span class="text-xs text-on-surface-variant ml-1">Verified</span>
+            </div>
+            <span class="text-[10px] text-on-surface-variant truncate">Static white-list</span>
+          </div>
+
+          <!-- Unknown / Suspicious (High alert) -->
+          <div class="glass-card p-3 rounded-xl flex flex-col justify-between border-danger/30 bg-danger/5">
+            <div class="flex justify-between items-center text-danger">
+              <span class="text-xs font-semibold">Unknown / Intruders</span>
+              <svg class="w-4 h-4 animate-bounce" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3Z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+            </div>
+            <div class="my-1.5">
+              <span id="kpiUnknown" class="text-2xl font-bold font-mono text-danger">0</span>
+              <span class="text-xs text-danger ml-1 font-semibold">Intruders</span>
+            </div>
+            <span id="kpiUnknownSub" class="text-[10px] text-danger font-medium truncate">Requires immediate action</span>
+          </div>
+
+          <!-- Firewall Blocked -->
+          <div class="glass-card p-3 rounded-xl flex flex-col justify-between">
+            <div class="flex justify-between items-center text-on-surface-variant">
+              <span class="text-xs font-medium">Firewall Blocked</span>
+              <svg class="w-4 h-4 text-warning" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="4.93" y1="4.93" x2="19.07" y2="19.07"/></svg>
+            </div>
+            <div class="my-1.5">
+              <span id="kpiBlocked" class="text-2xl font-bold font-mono text-on-surface">0</span>
+              <span class="text-xs text-on-surface-variant ml-1">Blocked</span>
+            </div>
+            <span class="text-[10px] text-on-surface-variant truncate">Traffic dropped at NIC</span>
+          </div>
+        </div>
+
+        <!-- Threat Intrusion Callout Banner (Shown when intruders exist) -->
+        <div id="bannerIntrusion" class="hidden glass-card border-danger/40 bg-gradient-to-r from-danger/20 via-danger/10 to-transparent p-3.5 rounded-xl flex flex-col md:flex-row items-start md:items-center justify-between gap-3 animate-in fade-in">
+          <div class="flex items-center gap-3">
+            <div class="w-9 h-9 rounded-lg bg-danger/20 border border-danger/40 flex items-center justify-center text-danger flex-shrink-0">
+              <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3Z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+            </div>
+            <div>
+              <div class="flex items-center gap-2">
+                <span id="bannerTitle" class="text-xs font-bold text-white tracking-wide">Unknown Devices Detected on Subnet!</span>
+                <span class="px-2 py-0.5 rounded text-[10px] font-mono bg-danger text-white font-bold">THREAT LEVEL: HIGH</span>
+              </div>
+              <p id="bannerDesc" class="text-xs text-on-surface-variant font-mono mt-0.5">Unrecognized nodes joined the local perimeter without authorization.</p>
+            </div>
+          </div>
+          <div class="flex items-center gap-2 flex-shrink-0">
+            <button onclick="deleteAllIntruders()" class="px-3.5 py-1.5 rounded-lg bg-danger/25 hover:bg-danger text-danger hover:text-white border border-danger/50 text-xs font-bold transition-all flex items-center gap-1.5 cursor-pointer shadow-sm" title="Delete all unknown/intruder devices from database">
+              <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 6h18"/><path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6"/><line x1="10" y1="11" x2="10" y2="17"/><line x1="14" y1="11" x2="14" y2="17"/></svg>
+              <span>Delete All Intruders</span>
+            </button>
+            <button onclick="autoBlockAllIntruders()" class="px-3.5 py-1.5 rounded-lg bg-danger hover:bg-red-600 text-white font-semibold text-xs shadow-md shadow-danger/30 transition-all flex items-center gap-1.5 cursor-pointer">
+              <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="4.93" y1="4.93" x2="19.07" y2="19.07"/></svg>
+              <span>Auto-Block Intruders</span>
+            </button>
+            <button onclick="filterBy('intruder')" class="px-3 py-1.5 rounded-lg bg-surface-high hover:bg-surface-highest border border-outline-dim text-on-surface text-xs font-medium transition-colors cursor-pointer">
+              Review Threat Details
+            </button>
+          </div>
+        </div>
+
+        <!-- Filter Pills & Search Bar -->
+        <div class="flex flex-col md:flex-row items-stretch md:items-center justify-between gap-3">
+          <div class="flex items-center gap-1.5 overflow-x-auto pb-1 md:pb-0">
+            <button onclick="filterBy('all')" id="btnFilter_all" class="filter-btn px-3 py-1.5 rounded-lg text-xs font-medium bg-surface-card border border-outline-dim text-on-surface hover:bg-surface-high transition-colors">
+              All Devices (<span id="count_all">0</span>)
+            </button>
+            <button onclick="filterBy('online')" id="btnFilter_online" class="filter-btn px-3 py-1.5 rounded-lg text-xs font-medium bg-surface-card border border-outline-dim text-on-surface hover:bg-surface-high transition-colors">
+              Online Only (<span id="count_online">0</span>)
+            </button>
+            <button onclick="filterBy('intruder')" id="btnFilter_intruder" class="filter-btn px-3 py-1.5 rounded-lg text-xs font-medium bg-surface-card border border-outline-dim text-on-surface hover:bg-surface-high transition-colors flex items-center gap-1.5">
+              <span class="w-1.5 h-1.5 rounded-full bg-danger"></span>
+              Flagged Intruders (<span id="count_intruder">0</span>)
+            </button>
+            <button onclick="filterBy('blocked')" id="btnFilter_blocked" class="filter-btn px-3 py-1.5 rounded-lg text-xs font-medium bg-surface-card border border-outline-dim text-on-surface hover:bg-surface-high transition-colors">
+              Firewall Blocked (<span id="count_blocked">0</span>)
+            </button>
+          </div>
+
+          <div class="flex items-center gap-2.5 flex-wrap">
+            <!-- Clickable box to show only live devices -->
+            <label id="lblOnlyLiveContainer" class="flex items-center gap-2 cursor-pointer select-none px-3 py-1.5 rounded-lg bg-surface-card hover:bg-surface-high border border-outline-dim transition-all text-xs font-medium text-on-surface" title="Check this box to show only live / active devices">
+              <input type="checkbox" id="chkOnlyLiveDevices" onchange="toggleOnlyLiveDevices(this.checked)" class="w-4 h-4 rounded text-secondary bg-surface-lowest border-outline-dim focus:ring-0 focus:ring-offset-0 cursor-pointer accent-emerald-500">
+              <span class="flex items-center gap-1.5">
+                <span class="w-2 h-2 rounded-full bg-secondary animate-pulse"></span>
+                <span>Show only live devices</span>
+              </span>
+              <span id="badgeLiveCount" class="text-[11px] font-mono px-1.5 py-0.5 rounded bg-secondary/15 text-secondary border border-secondary/25 font-semibold">0</span>
+            </label>
+
+            <!-- Search Input -->
+            <div class="relative min-w-[240px]">
+              <input type="text" id="searchInput" oninput="applyFilters()" placeholder="Search IP, MAC, Name, Vendor... (Ctrl+F)" class="w-full bg-surface-card border border-outline-dim rounded-lg text-xs px-3 py-2 pl-8 text-on-surface placeholder:text-on-surface-variant/60 focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary font-mono transition-all">
+              <svg class="w-3.5 h-3.5 text-on-surface-variant absolute left-2.5 top-2.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
+            </div>
+          </div>
+        </div>
+
+        <!-- Batch Actions & Intruder Management Toolbar -->
+        <div id="batchActionToolbar" class="flex items-center justify-between px-3.5 py-2 rounded-xl bg-surface-card border border-outline-dim text-xs select-none">
+          <div class="flex items-center gap-2">
+            <span class="font-bold text-on-surface flex items-center gap-1.5">
+              <span class="w-2 h-2 rounded-full bg-primary"></span>
+              <span id="batchSelectedCountText">0 selected</span>
+            </span>
+            <span class="text-on-surface-variant">•</span>
+            <span class="text-on-surface-variant text-[11px]">Select rows via checkbox to delete or manage</span>
+          </div>
+          <div class="flex items-center gap-2">
+            <button id="btnDeleteSelected" onclick="deleteSelectedDevices()" disabled class="px-3 py-1.5 rounded-lg bg-danger/15 hover:bg-danger text-danger hover:text-white border border-danger/30 font-semibold text-xs flex items-center gap-1.5 transition-all disabled:opacity-40 disabled:pointer-events-none cursor-pointer">
+              <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 6h18"/><path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6"/><line x1="10" y1="11" x2="10" y2="17"/><line x1="14" y1="11" x2="14" y2="17"/></svg>
+              <span>Delete Selected</span>
+            </button>
+            <button id="btnDeleteIntrudersBar" onclick="deleteAllIntruders()" class="px-3 py-1.5 rounded-lg bg-surface-high hover:bg-danger/25 hover:text-danger hover:border-danger/40 border border-outline-dim text-on-surface font-semibold text-xs flex items-center gap-1.5 transition-all cursor-pointer" title="Delete all unknown/intruder devices from list">
+              <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 6h18"/><path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6"/><line x1="10" y1="11" x2="10" y2="17"/><line x1="14" y1="11" x2="14" y2="17"/></svg>
+              <span>Delete All Intruders</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Connected Nodes Explorer (Main High-Density Data Table) -->
+        <div class="glass-card rounded-xl overflow-hidden border border-outline-dim flex flex-col">
+          <!-- Table Header Options -->
+          <div class="px-4 py-2.5 border-b border-outline-dim/70 flex items-center justify-between text-xs bg-surface-low/60">
+            <div class="flex items-center gap-2">
+              <span class="font-semibold text-on-surface">Connected Nodes Explorer</span>
+              <span id="tableVisibleCount" class="text-[11px] font-mono px-2 py-0.5 rounded-full bg-primary/10 text-primary border border-primary/20">0 displayed</span>
+            </div>
+            <div class="flex items-center gap-3 text-on-surface-variant text-[11px] font-mono">
+              <span class="flex items-center gap-1"><span class="w-1.5 h-1.5 rounded-full bg-secondary"></span> Real-time ARP sniffing</span>
+              <span>Density: Compact</span>
+            </div>
+          </div>
+
+          <!-- Table Container -->
+          <div class="overflow-x-auto">
+            <table class="w-full text-left border-collapse text-xs">
+              <thead>
+                <tr class="border-b-2 border-outline-dim bg-surface-low text-xs font-bold text-on-surface uppercase tracking-wider">
+                  <th class="py-3 px-3 w-8">
+                    <input type="checkbox" id="chkSelectAll" onchange="toggleSelectAll(this.checked)" class="w-4 h-4 cursor-pointer rounded bg-surface-card border-outline-dim text-primary focus:ring-0">
+                  </th>
+                  <th class="py-3 px-3">Status</th>
+                  <th class="py-3 px-3">Device Name / Hostname</th>
+                  <th class="py-3 px-3">IP Address</th>
+                  <th class="py-3 px-3">MAC Address</th>
+                  <th class="py-3 px-3">Vendor</th>
+                  <th class="py-3 px-3 text-center">Trust State</th>
+                  <th class="py-3 px-3 text-center">Firewall</th>
+                  <th class="py-3 px-3 text-right">First / Last Seen</th>
+                  <th class="py-3 px-3 text-center w-12">Action</th>
+                </tr>
+              </thead>
+              <tbody id="deviceTableBody" class="divide-y divide-outline-dim/40 font-mono text-[12px]">
+                <!-- Populated dynamically via JS -->
+              </tbody>
+            </table>
+          </div>
+
+          <!-- Empty State -->
+          <div id="tableEmptyState" class="hidden p-12 text-center flex flex-col items-center justify-center gap-2">
+            <svg class="w-10 h-10 text-on-surface-variant/40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+            <span class="text-sm font-medium text-on-surface">No network nodes match the current criteria</span>
+            <span class="text-xs text-on-surface-variant">Try clearing the search query or triggering a fresh network scan.</span>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Bottom Network Telemetry Status Bar -->
+      <footer class="h-8 bg-surface-lowest border-t border-outline-dim px-3 flex items-center justify-between text-[11px] font-mono text-on-surface-variant select-none flex-shrink-0 z-20">
+        <div class="flex items-center gap-3 truncate">
+          <span class="text-secondary font-semibold" id="footSweep">Sweep: 192.168.1.1-254</span>
+          <span>•</span>
+          <span id="footLastScan">Last Scan: Just now</span>
+          <span>•</span>
+          <span id="footInterface">Interface: Realtek GbE (1000 Mbps)</span>
+        </div>
+        <div class="flex items-center gap-3">
+          <span id="footThreats" class="text-on-surface">0 Threats Active</span>
+          <span class="text-outline-dim">|</span>
+          <span class="flex items-center gap-1 text-on-surface"><svg class="w-3 h-3 text-secondary" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14"/><path d="m19 12-7 7-7-7"/></svg><span id="footDown">0.0 KB/s</span></span>
+          <span class="flex items-center gap-1 text-on-surface"><svg class="w-3 h-3 text-primary" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 19V5"/><path d="m5 12 7-7 7 7"/></svg><span id="footUp">0.0 KB/s</span></span>
+          <span class="text-outline-dim">|</span>
+          <span class="flex items-center gap-1"><span class="w-1.5 h-1.5 rounded-full bg-secondary"></span> <span id="footLatency">Sync Latency: 4ms</span></span>
+        </div>
+      </footer>
+
+    </main>
+
+  </div>
+
+  <!-- ==================== MODAL: DEVICE INSPECTOR & FIREWALL RULES (Screen 2) ==================== -->
+  <div id="modalDeviceInspector" class="hidden fixed inset-0 bg-black/70 backdrop-blur-md flex items-center justify-center z-50 p-4">
+    <div class="bg-[#18181f] border border-white/10 rounded-2xl w-full max-w-2xl shadow-2xl flex flex-col max-h-[90vh] overflow-hidden animate-in fade-in zoom-in-95 duration-150">
+
+      <!-- Modal Header -->
+      <div class="px-6 py-4 border-b border-white/10 flex items-center justify-between bg-surface-card/60">
+        <div class="flex items-center gap-3">
+          <div id="modalHeaderIcon" class="w-10 h-10 rounded-xl bg-danger/15 border border-danger/30 flex items-center justify-center text-danger">
+            <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3Z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+          </div>
+          <div>
+            <h2 id="modalTitle" class="text-sm font-bold text-white tracking-wide">Threat Triage: Unknown Device Detected</h2>
+            <p class="text-xs text-on-surface-variant font-mono">Inspecting node profile and enforcing perimeter defense policies</p>
+          </div>
+        </div>
+        <button onclick="closeDeviceInspector()" class="w-8 h-8 rounded-lg flex items-center justify-center text-on-surface-variant hover:text-white hover:bg-white/5 transition-colors">
+          <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6 6 18M6 6l12 12"/></svg>
+        </button>
+      </div>
+
+      <!-- Modal Body -->
+      <div class="p-6 overflow-y-auto flex flex-col gap-5 text-xs">
+
+        <!-- Device Profile Card -->
+        <div class="bg-surface-card border border-white/5 rounded-xl p-4 flex flex-col gap-3">
+          <div class="flex items-center justify-between border-b border-outline-dim/40 pb-2">
+            <span class="font-semibold text-primary flex items-center gap-2">
+              <svg id="modalDeviceIcon" class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8"/><path d="M12 17v4"/></svg>
+              <span id="modalDeviceHeaderTitle">Device Profile: UNKNOWN-DEVICE-E4</span>
+            </span>
+            <!-- Trust Toggle -->
+            <label class="flex items-center gap-2 cursor-pointer">
+              <span class="text-[11px] text-on-surface-variant">Trust Status:</span>
+              <input type="checkbox" id="modalChkKnown" class="sr-only peer">
+              <div class="w-8 h-4 bg-surface-high peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:rounded-full after:h-3 after:w-3 after:transition-all peer-checked:bg-secondary"></div>
+              <span class="text-[11px] font-medium text-on-surface">Mark as Known / My Device</span>
+            </label>
+          </div>
+
+          <!-- Metadata Fields -->
+          <div class="grid grid-cols-2 gap-4">
+            <div>
+              <label class="text-[10px] uppercase font-semibold text-on-surface-variant block mb-1">Friendly Name</label>
+              <input type="text" id="modalInputName" class="w-full bg-surface-lowest border border-outline-dim rounded-lg p-2 text-on-surface focus:outline-none focus:border-primary font-sans">
+            </div>
+            <div>
+              <label class="text-[10px] uppercase font-semibold text-on-surface-variant block mb-1">Description</label>
+              <input type="text" id="modalInputDesc" class="w-full bg-surface-lowest border border-outline-dim rounded-lg p-2 text-on-surface focus:outline-none focus:border-primary font-sans">
+            </div>
+            <div>
+              <label class="text-[10px] uppercase font-semibold text-on-surface-variant block mb-1">IP Address</label>
+              <div class="flex items-center gap-1.5 bg-surface-lowest border border-outline-dim rounded-lg p-2 font-mono text-primary font-semibold">
+                <span id="modalValIp">192.168.1.108</span>
+                <button onclick="copyToClipboard(document.getElementById('modalValIp').innerText)" class="ml-auto text-on-surface-variant hover:text-white" title="Copy IP"><svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect width="14" height="14" x="8" y="8" rx="2" ry="2"/><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"/></svg></button>
+              </div>
+            </div>
+            <div>
+              <label class="text-[10px] uppercase font-semibold text-on-surface-variant block mb-1">MAC Address</label>
+              <div class="flex items-center gap-1.5 bg-surface-lowest border border-outline-dim rounded-lg p-2 font-mono text-on-surface">
+                <span id="modalValMac">38:2C:4A:88:9F:12</span>
+                <button onclick="copyToClipboard(document.getElementById('modalValMac').innerText)" class="ml-auto text-on-surface-variant hover:text-white" title="Copy MAC"><svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect width="14" height="14" x="8" y="8" rx="2" ry="2"/><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"/></svg></button>
+              </div>
+            </div>
+            <div>
+              <label class="text-[10px] uppercase font-semibold text-on-surface-variant block mb-1">OUI Vendor / Hardware</label>
+              <span id="modalValVendor" class="block bg-surface-lowest border border-outline-dim rounded-lg p-2 font-mono text-on-surface truncate">Espressif Systems IoT</span>
+            </div>
+            <div>
+              <label class="text-[10px] uppercase font-semibold text-on-surface-variant block mb-1">First Seen / Last Seen</label>
+              <span id="modalValSeen" class="block bg-surface-lowest border border-outline-dim rounded-lg p-2 font-mono text-on-surface-variant truncate">Today, 04:12 AM / Active 14s ago</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Firewall Isolation Section -->
+        <div class="bg-surface-card border border-white/5 rounded-xl p-4 flex flex-col gap-3">
+          <div class="flex items-center justify-between border-b border-outline-dim/40 pb-2">
+            <span class="font-semibold text-danger flex items-center gap-2">
+              <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+              <span>Firewall Isolation</span>
+            </span>
+            <span class="px-2 py-0.5 rounded text-[10px] font-mono bg-danger/15 text-danger border border-danger/30 font-semibold flex items-center gap-1">
+              <svg class="w-3 h-3" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+              <span>Elevated Netsh Active</span>
+            </span>
+          </div>
+
+          <div class="flex items-center justify-between">
+            <div>
+              <span class="font-semibold text-on-surface block">Windows Defender Firewall Rules:</span>
+              <span id="modalFirewallStatusText" class="text-[11px] font-mono text-on-surface-variant">Active inbound/outbound netsh drop rules applied to this IP</span>
+            </div>
+            <div class="flex items-center gap-2">
+              <button id="modalBtnUnblock" onclick="modalToggleFirewall(false)" class="px-3 py-1.5 rounded-lg bg-surface-high hover:bg-surface-highest border border-outline-dim text-on-surface font-medium transition-colors">
+                Unblock
+              </button>
+              <button id="modalBtnBlock" onclick="modalToggleFirewall(true)" class="px-3.5 py-1.5 rounded-lg bg-danger hover:bg-red-600 text-white font-semibold shadow-md shadow-danger/25 transition-all flex items-center gap-1.5">
+                <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="4.93" y1="4.93" x2="19.07" y2="19.07"/></svg>
+                <span>Block Device</span>
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Port Scan Telemetry Summary -->
+        <div class="bg-surface-card border border-white/5 rounded-xl p-4 flex flex-col gap-3">
+          <div class="flex items-center justify-between border-b border-outline-dim/40 pb-2">
+            <span class="font-semibold text-warning flex items-center gap-2">
+              <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg>
+              <span>Port Scan Telemetry Summary</span>
+            </span>
+            <div class="flex items-center gap-2">
+              <button onclick="runPortScanForModal()" class="px-2 py-0.5 rounded text-[10px] font-mono bg-surface-high hover:bg-surface-highest border border-outline-dim text-primary flex items-center gap-1">
+                <svg class="w-3 h-3" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="23 4 23 10 17 10"/><path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"/></svg>
+                <span>Rescan Ports</span>
+              </button>
+              <span id="modalPortBadge" class="px-2 py-0.5 rounded text-[10px] font-mono bg-warning/15 text-warning border border-warning/30 font-semibold">3 Open Ports Flagged</span>
+            </div>
+          </div>
+
+          <!-- Port Cards -->
+          <div id="modalPortCardsGrid" class="grid grid-cols-1 md:grid-cols-3 gap-2.5">
+            <!-- Port 80 -->
+            <div class="bg-surface-lowest p-2.5 rounded-lg border border-outline-dim flex flex-col justify-between">
+              <div class="flex justify-between items-center">
+                <span class="font-mono font-bold text-on-surface">Port 80</span>
+                <span class="text-[9px] font-mono px-1.5 py-0.2 rounded bg-warning/20 text-warning font-semibold">HTTP</span>
+              </div>
+              <span class="text-[11px] text-on-surface-variant mt-1">Web Management Interface</span>
+            </div>
+            <!-- Port 8080 -->
+            <div class="bg-surface-lowest p-2.5 rounded-lg border border-outline-dim flex flex-col justify-between">
+              <div class="flex justify-between items-center">
+                <span class="font-mono font-bold text-on-surface">Port 8080</span>
+                <span class="text-[9px] font-mono px-1.5 py-0.2 rounded bg-warning/20 text-warning font-semibold">ALT-HTTP</span>
+              </div>
+              <span class="text-[11px] text-on-surface-variant mt-1">Secondary Telemetry Service</span>
+            </div>
+            <!-- Port 23 Critical -->
+            <div class="bg-danger/10 p-2.5 rounded-lg border border-danger/40 flex flex-col justify-between">
+              <div class="flex justify-between items-center">
+                <span class="font-mono font-bold text-danger">Port 23</span>
+                <span class="text-[9px] font-mono px-1.5 py-0.2 rounded bg-danger text-white font-bold">CRITICAL</span>
+              </div>
+              <span class="text-[11px] text-danger/90 mt-1">Telnet Service Exposed</span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Modal Footer -->
+      <div class="px-6 py-3.5 border-t border-white/10 bg-surface-card flex items-center justify-between gap-2.5">
+        <button onclick="deleteCurrentInspectedDevice()" class="px-3.5 py-2 rounded-lg bg-danger/15 hover:bg-danger text-danger hover:text-white border border-danger/35 font-semibold text-xs transition-all flex items-center gap-1.5 cursor-pointer">
+          <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 6h18"/><path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6"/><line x1="10" y1="11" x2="10" y2="17"/><line x1="14" y1="11" x2="14" y2="17"/></svg>
+          <span>Delete Device</span>
+        </button>
+        <div class="flex items-center gap-2">
+          <button onclick="closeDeviceInspector()" class="px-4 py-2 rounded-lg bg-surface-high hover:bg-surface-highest text-on-surface font-medium transition-colors">
+            Cancel
+          </button>
+          <button onclick="saveDeviceInspector()" class="px-4 py-2 rounded-lg bg-surface-high hover:bg-surface-highest border border-outline-dim text-on-surface font-semibold transition-colors">
+            Save Changes
+          </button>
+          <button onclick="applyDeviceFirewallAndSave()" class="px-4 py-2 rounded-lg bg-primary hover:bg-blue-600 text-white font-semibold shadow-md shadow-primary/25 transition-all">
+            Apply & Save
+          </button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ==================== MODAL: PREFERENCES & SETTINGS ==================== -->
+  <div id="modalSettings" class="hidden fixed inset-0 bg-black/70 backdrop-blur-md flex items-center justify-center z-50 p-4">
+    <div class="bg-surface-low border border-outline-dim rounded-2xl w-full max-w-xl shadow-2xl flex flex-col max-h-[85vh] overflow-hidden">
+      <div class="px-6 py-4 border-b border-outline-dim flex items-center justify-between bg-surface-card/60">
+        <div class="flex items-center gap-2.5">
+          <svg class="w-5 h-5 text-primary" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12.22 2h-.44a2 2 0 0 0-2 2v.18a2 2 0 0 1-1 1.73l-.43.25a2 2 0 0 1-2 0l-.15-.08a2 2 0 0 0-2.73.73l-.22.38a2 2 0 0 0 .73 2.73l.15.1a2 2 0 0 1 1 1.72v.51a2 2 0 0 1-1 1.74l-.15.09a2 2 0 0 0-.73 2.73l.22.38a2 2 0 0 0 2.73.73l.15-.08a2 2 0 0 1 2 0l.43.25a2 2 0 0 1 1 1.73V20a2 2 0 0 0 2 2h.44a2 2 0 0 0 2-2v-.18a2 2 0 0 1 1-1.73l.43-.25a2 2 0 0 1 2 0l.15.08a2 2 0 0 0 2.73-.73l.22-.39a2 2 0 0 0-.73-2.73l-.15-.08a2 2 0 0 1-1-1.74v-.5a2 2 0 0 1 1-1.74l.15-.09a2 2 0 0 0 .73-2.73l-.22-.38a2 2 0 0 0-2.73-.73l-.15.08a2 2 0 0 1-2 0l-.43-.25a2 2 0 0 1-1-1.73V4a2 2 0 0 0-2-2z"/><circle cx="12" cy="12" r="3"/></svg>
+          <h2 class="text-sm font-bold text-on-surface">Scanner & App Preferences</h2>
+        </div>
+        <button onclick="closeSettingsModal()" class="text-on-surface-variant hover:text-on-surface"><svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6 6 18M6 6l12 12"/></svg></button>
+      </div>
+
+      <div class="p-6 overflow-y-auto flex flex-col gap-4 text-xs">
+        <!-- Appearance & Theme Selection -->
+        <div class="bg-surface-card p-4 rounded-xl border border-outline-dim flex flex-col gap-2.5">
+          <div class="flex items-center justify-between">
+            <span class="font-bold text-sm text-on-surface flex items-center gap-2">
+              <span class="text-base">🎨</span>
+              <span>Visual Appearance & Theme</span>
+            </span>
+            <span class="text-[11px] text-on-surface-variant font-mono">5 High-Contrast Color Themes</span>
+          </div>
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 mt-1">
+            <button type="button" onclick="setTheme('slate')" class="settings-theme-card p-2.5 rounded-lg border flex items-center justify-between text-left hover:border-primary transition-all bg-surface-low border-outline-dim cursor-pointer" data-theme="slate">
+              <div class="flex items-center gap-2.5">
+                <span class="w-4 h-4 rounded-full bg-slate-900 border-2 border-sky-400 flex-shrink-0"></span>
+                <div>
+                  <div class="font-bold text-xs text-on-surface">Midnight Slate</div>
+                  <div class="text-[10px] text-on-surface-variant">Default High-Contrast Dark</div>
+                </div>
+              </div>
+              <span class="settings-theme-check text-primary font-bold text-xs hidden">✓</span>
+            </button>
+            <button type="button" onclick="setTheme('light')" class="settings-theme-card p-2.5 rounded-lg border flex items-center justify-between text-left hover:border-primary transition-all bg-surface-low border-outline-dim cursor-pointer" data-theme="light">
+              <div class="flex items-center gap-2.5">
+                <span class="w-4 h-4 rounded-full bg-slate-100 border-2 border-blue-600 flex-shrink-0"></span>
+                <div>
+                  <div class="font-bold text-xs text-on-surface">Fluent Light</div>
+                  <div class="text-[10px] text-on-surface-variant">Clean Crisp Windows 11 Day</div>
+                </div>
+              </div>
+              <span class="settings-theme-check text-primary font-bold text-xs hidden">✓</span>
+            </button>
+            <button type="button" onclick="setTheme('oled')" class="settings-theme-card p-2.5 rounded-lg border flex items-center justify-between text-left hover:border-primary transition-all bg-surface-low border-outline-dim cursor-pointer" data-theme="oled">
+              <div class="flex items-center gap-2.5">
+                <span class="w-4 h-4 rounded-full bg-black border-2 border-cyan-400 flex-shrink-0"></span>
+                <div>
+                  <div class="font-bold text-xs text-on-surface">OLED Pitch Black</div>
+                  <div class="text-[10px] text-on-surface-variant">True Black & Electric Cyan</div>
+                </div>
+              </div>
+              <span class="settings-theme-check text-primary font-bold text-xs hidden">✓</span>
+            </button>
+            <button type="button" onclick="setTheme('ocean')" class="settings-theme-card p-2.5 rounded-lg border flex items-center justify-between text-left hover:border-primary transition-all bg-surface-low border-outline-dim cursor-pointer" data-theme="ocean">
+              <div class="flex items-center gap-2.5">
+                <span class="w-4 h-4 rounded-full bg-[#0b192c] border-2 border-emerald-400 flex-shrink-0"></span>
+                <div>
+                  <div class="font-bold text-xs text-on-surface">Ocean Cobalt</div>
+                  <div class="text-[10px] text-on-surface-variant">Deep Navy & Electric Mint</div>
+                </div>
+              </div>
+              <span class="settings-theme-check text-primary font-bold text-xs hidden">✓</span>
+            </button>
+            <button type="button" onclick="setTheme('charcoal')" class="settings-theme-card p-2.5 rounded-lg border flex items-center justify-between text-left hover:border-primary transition-all bg-surface-low border-outline-dim col-span-1 sm:col-span-2 cursor-pointer" data-theme="charcoal">
+              <div class="flex items-center gap-2.5">
+                <span class="w-4 h-4 rounded-full bg-zinc-800 border-2 border-indigo-400 flex-shrink-0"></span>
+                <div>
+                  <div class="font-bold text-xs text-on-surface">Refined Charcoal</div>
+                  <div class="text-[10px] text-on-surface-variant">Zinc Dark with Indigo Highlights</div>
+                </div>
+              </div>
+              <span class="settings-theme-check text-primary font-bold text-xs hidden">✓</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Scanning settings -->
+        <div class="bg-surface-card p-4 rounded-xl border border-outline-dim flex flex-col gap-3">
+          <span class="font-semibold text-primary">Automated Sweeping</span>
+          <label class="flex items-center gap-2 cursor-pointer">
+            <input type="checkbox" id="setAutoscan" class="rounded bg-surface-lowest border-outline-dim text-primary focus:ring-0">
+            <span>Run automated sweeps in background</span>
+          </label>
+          <div class="flex items-center gap-2 ml-6">
+            <span class="text-on-surface-variant">Minutes between sweeps:</span>
+            <input type="number" id="setFrequency" min="1" max="1440" class="w-20 bg-surface-lowest border border-outline-dim rounded p-1 text-center font-mono">
+          </div>
+          <label class="flex items-center gap-2 cursor-pointer">
+            <input type="checkbox" id="setContinuous" class="rounded bg-surface-lowest border-outline-dim text-primary focus:ring-0">
+            <span>Continuous scanning (immediate back-to-back sweeps)</span>
+          </label>
+          <label class="flex items-center gap-2 cursor-pointer">
+            <input type="checkbox" id="setIgnoreGw" class="rounded bg-surface-lowest border-outline-dim text-primary focus:ring-0">
+            <span>Hide router / default gateway from device table</span>
+          </label>
+          <label class="flex items-center gap-2 cursor-pointer">
+            <input type="checkbox" id="setFiltConnected" class="rounded bg-surface-lowest border-outline-dim text-secondary focus:ring-0">
+            <span>Default to showing only live / online devices</span>
+          </label>
+        </div>
+
+        <!-- Desktop Shell behavior -->
+        <div class="bg-surface-card p-4 rounded-xl border border-white/5 flex flex-col gap-3">
+          <span class="font-semibold text-primary">System Tray & Alerts</span>
+          <label class="flex items-center gap-2 cursor-pointer">
+            <input type="checkbox" id="setMinimize" class="rounded bg-surface-lowest border-outline-dim text-primary focus:ring-0">
+            <span>Minimize to Windows system tray instead of closing</span>
+          </label>
+          <label class="flex items-center gap-2 cursor-pointer">
+            <input type="checkbox" id="setSound" class="rounded bg-surface-lowest border-outline-dim text-primary focus:ring-0">
+            <span>Play sound when a new unknown device is detected</span>
+          </label>
+          <label class="flex items-center gap-2 cursor-pointer">
+            <input type="checkbox" id="setPopup" class="rounded bg-surface-lowest border-outline-dim text-primary focus:ring-0">
+            <span>Display Windows desktop notification for intruders</span>
+          </label>
+        </div>
+
+        <!-- Data Migration & Backup -->
+        <div class="bg-surface-card p-4 rounded-xl border border-white/5 flex flex-col gap-3">
+          <span class="font-semibold text-primary">Data Migration & Backup</span>
+          <p class="text-on-surface-variant text-[11px] leading-relaxed">Import settings, subnets, and named devices from original Who Is On My WiFi backup files (<span class="font-mono text-secondary">.wif</span>, <span class="font-mono text-secondary">.db</span>, <span class="font-mono text-secondary">.json</span>).</p>
+          <div class="flex items-center gap-2">
+            <button type="button" onclick="openImportModal()" class="px-3 py-1.5 rounded-lg bg-surface-high hover:bg-surface-highest border border-outline-dim text-on-surface flex items-center gap-1.5 transition-colors">
+              <svg class="w-3.5 h-3.5 text-secondary" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+              <span>Import Backup File (.wif)...</span>
+            </button>
+            <button type="button" onclick="exportData()" class="px-3 py-1.5 rounded-lg bg-surface-high hover:bg-surface-highest border border-outline-dim text-on-surface flex items-center gap-1.5 transition-colors">
+              <svg class="w-3.5 h-3.5 text-primary" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+              <span>Export Reborn Backup</span>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <div class="px-6 py-3.5 border-t border-white/10 bg-surface-card flex justify-end gap-2">
+        <button onclick="closeSettingsModal()" class="px-4 py-2 rounded-lg bg-surface-high hover:bg-surface-highest text-on-surface">Cancel</button>
+        <button onclick="saveSettingsModal()" class="px-4 py-2 rounded-lg bg-primary hover:bg-blue-600 text-white font-semibold">Save Settings</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==================== MODAL: SUBNET & IP RANGES ==================== -->
+  <div id="modalSubnet" class="hidden fixed inset-0 bg-black/70 backdrop-blur-md flex items-center justify-center z-50 p-4">
+    <div class="bg-[#18181f] border border-white/10 rounded-2xl w-full max-w-lg shadow-2xl flex flex-col overflow-hidden">
+      <div class="px-6 py-4 border-b border-white/10 flex items-center justify-between bg-surface-card/60">
+        <h2 class="text-sm font-bold text-white">Subnet & IP Range Management</h2>
+        <button onclick="closeSubnetModal()" class="text-on-surface-variant hover:text-white"><svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6 6 18M6 6l12 12"/></svg></button>
+      </div>
+      <div class="p-6 flex flex-col gap-4 text-xs">
+        <p class="text-on-surface-variant">Specify the IP address range for Who Is On My WiFi to sweep (e.g. <span class="font-mono text-primary">192.168.1.1-192.168.1.254</span> or <span class="font-mono text-primary">192.168.1.0/24</span>).</p>
+        <div>
+          <label class="block text-on-surface-variant mb-1 font-semibold">IP Range / CIDR:</label>
+          <input type="text" id="inputSubnetRange" placeholder="192.168.1.1-192.168.1.254" class="w-full bg-surface-lowest border border-outline-dim rounded-lg p-2.5 font-mono text-on-surface focus:outline-none focus:border-primary">
+        </div>
+      </div>
+      <div class="px-6 py-3 border-t border-white/10 bg-surface-card flex justify-end gap-2">
+        <button onclick="closeSubnetModal()" class="px-4 py-2 rounded-lg bg-surface-high hover:bg-surface-highest text-on-surface">Cancel</button>
+        <button onclick="saveSubnetModal()" class="px-4 py-2 rounded-lg bg-primary hover:bg-blue-600 text-white font-semibold">Apply Subnet</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==================== MODAL: LOG VIEWER ==================== -->
+  <div id="modalLogs" class="hidden fixed inset-0 bg-black/70 backdrop-blur-md flex items-center justify-center z-50 p-4">
+    <div class="bg-[#18181f] border border-white/10 rounded-2xl w-full max-w-3xl shadow-2xl flex flex-col max-h-[85vh] overflow-hidden">
+      <div class="px-6 py-4 border-b border-white/10 flex items-center justify-between bg-surface-card/60">
+        <h2 class="text-sm font-bold text-white flex items-center gap-2">
+          <svg class="w-4 h-4 text-primary" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="4 17 10 11 4 5"/><line x1="12" y1="19" x2="20" y2="19"/></svg>
+          <span>Live Scan & Firewall Block Logs</span>
+        </h2>
+        <button onclick="closeLogsModal()" class="text-on-surface-variant hover:text-white"><svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6 6 18M6 6l12 12"/></svg></button>
+      </div>
+      <div class="p-4 overflow-y-auto flex-1 font-mono text-xs bg-surface-lowest text-on-surface-variant whitespace-pre-wrap select-text" id="logsContent">
+        Loading logs...
+      </div>
+      <div class="px-6 py-3 border-t border-white/10 bg-surface-card flex justify-between items-center">
+        <span class="text-[11px] text-on-surface-variant">Logs stored locally in AppData</span>
+        <button onclick="closeLogsModal()" class="px-4 py-1.5 rounded-lg bg-surface-high hover:bg-surface-highest text-on-surface">Close</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==================== MODAL: IMPORT BACKUP (.wif / .json) ==================== -->
+  <div id="modalImport" class="hidden fixed inset-0 bg-black/70 backdrop-blur-md flex items-center justify-center z-50 p-4">
+    <div class="bg-[#18181f] border border-white/10 rounded-2xl w-full max-w-lg shadow-2xl flex flex-col overflow-hidden">
+      <div class="px-6 py-4 border-b border-white/10 flex items-center justify-between bg-surface-card/60">
+        <h2 class="text-sm font-bold text-white flex items-center gap-2">
+          <svg class="w-4 h-4 text-secondary" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+          <span>Import Who Is On My WiFi Backup (.wif)</span>
+        </h2>
+        <button onclick="closeImportModal()" class="text-on-surface-variant hover:text-white"><svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6 6 18M6 6l12 12"/></svg></button>
+      </div>
+      <div class="p-6 flex flex-col gap-4 text-xs">
+        <p class="text-on-surface-variant leading-relaxed">
+          Import your known devices, custom friendly names, descriptions, subnets, and notification preferences from an original Who Is On My WiFi backup (<span class="font-mono text-primary font-semibold">.wif</span>, <span class="font-mono text-primary font-semibold">.db</span>, or <span class="font-mono text-primary font-semibold">.json</span>).
+        </p>
+
+        <div>
+          <label class="block text-on-surface-variant mb-1 font-semibold">Backup File Path:</label>
+          <div class="flex gap-2">
+            <input type="text" id="inputImportPath" value="C:\Users\xbxga\Downloads\backup.wif" placeholder="C:\Users\...\backup.wif" class="flex-1 bg-surface-lowest border border-outline-dim rounded-lg p-2.5 font-mono text-on-surface focus:outline-none focus:border-secondary">
+            <button onclick="browseForImportFile()" class="px-3 py-2 rounded-lg bg-surface-high hover:bg-surface-highest border border-outline-dim text-on-surface font-medium flex items-center gap-1 transition-colors">
+              <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m6 14 1.45-2.9A2 2 0 0 1 9.24 10H20a2 2 0 0 1 1.94 2.5l-1.55 6a2 2 0 0 1-1.94 1.5H4a2 2 0 0 1-2-2V5c0-1.1.9-2 2-2h3.93a2 2 0 0 1 1.66.9l.82 1.2a2 2 0 0 0 1.66.9H18a2 2 0 0 1 2 2v2"/></svg>
+              <span>Browse...</span>
+            </button>
+          </div>
+        </div>
+
+        <div id="importFileStatusBox" class="p-3 rounded-lg bg-secondary/10 border border-secondary/20 text-secondary flex items-start gap-2.5">
+          <svg class="w-4 h-4 mt-0.5 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+          <div class="text-[11px] leading-tight flex flex-col gap-0.5">
+            <span class="font-semibold">Quick Preset Detected</span>
+            <span class="text-on-surface-variant font-mono text-[10px]">C:\Users\xbxga\Downloads\backup.wif</span>
+          </div>
+        </div>
+
+        <div id="importStatusMessage" class="hidden p-3 rounded-lg text-[11px]"></div>
+      </div>
+      <div class="px-6 py-3.5 border-t border-white/10 bg-surface-card flex justify-end gap-2">
+        <button onclick="closeImportModal()" class="px-4 py-2 rounded-lg bg-surface-high hover:bg-surface-highest text-on-surface">Cancel</button>
+        <button id="btnExecuteImport" onclick="executeImport()" class="px-4 py-2 rounded-lg bg-secondary hover:bg-emerald-600 text-white font-semibold flex items-center gap-1.5 shadow-md shadow-secondary/20 transition-all">
+          <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
+          <span>Import Now</span>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- JavaScript Bridge & Application Controller -->
+  <script>
+    // Global Application State
+    let state = {
+      devices: [],
+      selectedDigisig: null,
+      currentFilter: 'all',
+      isScanning: false,
+      lastCompletedScanId: 0,
+      settings: {},
+      telemetry: {},
+      inspectedDevice: null,
+      selectedRows: new Set()
+    };
+
+    // Visual Theme Management System
+    const THEMES = {
+      slate: { name: 'Midnight Slate', icon: '🌙', isLight: false },
+      light: { name: 'Fluent Light', icon: '☀️', isLight: true },
+      oled: { name: 'OLED Pitch Black', icon: '🌌', isLight: false },
+      ocean: { name: 'Ocean Cobalt', icon: '🌊', isLight: false },
+      charcoal: { name: 'Refined Charcoal', icon: '🛸', isLight: false },
+    };
+
+    function setTheme(themeId) {
+      if (!THEMES[themeId]) themeId = 'slate';
+      const html = document.documentElement;
+      Object.keys(THEMES).forEach(t => html.classList.remove('theme-' + t));
+      html.classList.add('theme-' + themeId);
+
+      const info = THEMES[themeId];
+      if (info.isLight) {
+        html.classList.remove('dark');
+        html.classList.add('light');
+      } else {
+        html.classList.remove('light');
+        html.classList.add('dark');
+      }
+
+      // Update Header Dropdown
+      const lbl = document.getElementById('themeCurrentLabel');
+      if (lbl) lbl.innerText = 'Theme: ' + info.name.split(' ')[0];
+      const ico = document.getElementById('themeCurrentIcon');
+      if (ico) ico.innerText = info.icon;
+
+      // Update Dropdown checkmarks
+      document.querySelectorAll('.theme-option-btn').forEach(btn => {
+        const check = btn.querySelector('.theme-check');
+        if (btn.getAttribute('data-theme') === themeId) {
+          if (check) check.classList.remove('hidden');
+          btn.classList.add('bg-surface-high', 'font-semibold');
+        } else {
+          if (check) check.classList.add('hidden');
+          btn.classList.remove('bg-surface-high', 'font-semibold');
+        }
+      });
+
+      // Update Settings Modal cards checkmarks
+      document.querySelectorAll('.settings-theme-card').forEach(card => {
+        const check = card.querySelector('.settings-theme-check');
+        if (card.getAttribute('data-theme') === themeId) {
+          if (check) check.classList.remove('hidden');
+          card.classList.add('border-primary', 'bg-surface-high');
+          card.classList.remove('border-outline-dim', 'bg-surface-low');
+        } else {
+          if (check) check.classList.add('hidden');
+          card.classList.remove('border-primary', 'bg-surface-high');
+          card.classList.add('border-outline-dim', 'bg-surface-low');
+        }
+      });
+
+      try { localStorage.setItem('reborn_theme', themeId); } catch {}
+      sendAction('theme_changed', { theme: themeId, isLight: info.isLight });
+
+      const menu = document.getElementById('themeMenu');
+      if (menu) menu.classList.add('hidden');
+    }
+
+    function initTheme() {
+      let saved = 'slate';
+      try { saved = localStorage.getItem('reborn_theme') || 'slate'; } catch {}
+      setTheme(saved);
+    }
+
+    function toggleThemeMenu(event) {
+      if (event) event.stopPropagation();
+      const menu = document.getElementById('themeMenu');
+      if (menu) menu.classList.toggle('hidden');
+    }
+
+    // Close menu when clicking outside
+    document.addEventListener('click', (e) => {
+      const menu = document.getElementById('themeMenu');
+      const btn = document.getElementById('btnThemeDropdown');
+      if (menu && !menu.classList.contains('hidden') && btn && !btn.contains(e.target)) {
+        menu.classList.add('hidden');
+      }
+    });
+
+    // Run theme initialization immediately
+    initTheme();
+
+    // Device Type SVG Icons Generator
+    function getDeviceIconSvg(type) {
+      switch (type) {
+        case 'router':
+          return `<svg class="w-4 h-4 text-primary" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="14" width="20" height="8" rx="2"/><path d="M6 18h.01"/><path d="M10 18h.01"/><path d="M15 10v4"/><path d="M17.8 8.2a6 6 0 0 0-8.6 0"/><path d="M20.6 5.4a10 10 0 0 0-14.2 0"/></svg>`;
+        case 'laptop':
+          return `<svg class="w-4 h-4 text-blue-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 16V7a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v9m16 0H4m16 0 1.28 2.55a1 1 0 0 1-.9 1.45H3.62a1 1 0 0 1-.9-1.45L4 16"/></svg>`;
+        case 'phone':
+          return `<svg class="w-4 h-4 text-purple-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect width="14" height="20" x="5" y="2" rx="2" ry="2"/><path d="M12 18h.01"/></svg>`;
+        case 'tv':
+          return `<svg class="w-4 h-4 text-sky-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect width="20" height="15" x="2" y="7" rx="2" ry="2"/><polyline points="17 2 12 7 7 2"/></svg>`;
+        case 'iot':
+          return `<svg class="w-4 h-4 text-emerald-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect width="16" height="16" x="4" y="4" rx="2"/><rect width="6" height="6" x="9" y="9" rx="1"/><path d="M15 2v2"/><path d="M15 20v2"/><path d="M2 15h2"/><path d="M2 9h2"/><path d="M20 15h2"/><path d="M20 9h2"/><path d="M9 2v2"/><path d="M9 20v2"/></svg>`;
+        case 'printer':
+          return `<svg class="w-4 h-4 text-amber-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 6 2 18 2 18 9"/><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><rect width="12" height="8" x="6" y="14"/></svg>`;
+        default:
+          return `<svg class="w-4 h-4 text-on-surface-variant" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/><path d="M12 8h.01"/></svg>`;
+      }
+    }
+
+    function handleTitlebarMouseDown(e) {
+      if (e.target.closest('.titlebar-nodrag')) return;
+      if (e.button === 0) {
+        sendAction('window_drag');
+      }
+    }
+
+    function handleTitlebarDblClick(e) {
+      if (e.target.closest('.titlebar-nodrag')) return;
+      sendAction('window_maximize');
+    }
+
+    // Communication with C# WebView2 host
+    function sendAction(action, data = {}) {
+      if (window.chrome && window.chrome.webview) {
+        window.chrome.webview.postMessage({ action, ...data });
+      } else {
+        console.log("Mock SendAction:", action, data);
+      }
+    }
+
+    // Receive message from C# host
+    if (window.chrome && window.chrome.webview) {
+      window.chrome.webview.addEventListener('message', event => {
+        handleHostMessage(event.data);
+      });
+    }
+
+    function handleHostMessage(msg) {
+      if (!msg) return;
+
+      switch (msg.type) {
+        case 'init_state':
+        case 'refresh_data':
+          state.devices = msg.devices || [];
+          state.settings = msg.settings || {};
+          state.telemetry = msg.telemetry || {};
+          updateUiState();
+          break;
+
+        case 'scan_progress':
+          if (msg.scanId && msg.scanId < state.lastCompletedScanId) {
+            return; // Ignore stale delayed progress from previous scan session
+          }
+          if ((msg.percent && msg.percent >= 100) || (msg.probed && msg.total && msg.probed >= msg.total)) {
+            state.isScanning = false;
+            if (msg.scanId) state.lastCompletedScanId = Math.max(state.lastCompletedScanId, msg.scanId);
+            completeScanStatus();
+            return;
+          }
+          state.isScanning = true;
+          updateScanStatus(msg.text, msg.percent, msg.currentIp, msg.probed, msg.total, msg.found);
+          break;
+
+        case 'scan_done':
+          state.isScanning = false;
+          if (msg.scanId) state.lastCompletedScanId = Math.max(state.lastCompletedScanId, msg.scanId);
+          state.devices = msg.devices || [];
+          completeScanStatus();
+          updateUiState();
+          break;
+
+        case 'telemetry_tick':
+          if (msg.telemetry) {
+            state.telemetry = msg.telemetry;
+            updateTelemetryDisplay();
+          }
+          if (msg.nextScanSeconds !== undefined) {
+            updateCountdown(msg.nextScanSeconds, msg.isContinuous);
+          }
+          break;
+
+        case 'port_scan_results':
+          renderPortCards(msg.ports || []);
+          break;
+
+        case 'logs_data':
+          document.getElementById('logsContent').innerText = msg.logs || "No log records found.";
+          break;
+
+        case 'import_result':
+          handleImportResult(msg);
+          break;
+      }
+    }
+
+    function updateScanStatus(text, percent, currentIp, probed, total, found) {
+      const dot = document.getElementById('scanStatusDot');
+      const lbl = document.getElementById('scanStatusText');
+      const btnMain = document.getElementById('lblScanAction');
+      const btnInstant = document.getElementById('instantScanText');
+      const btnStop = document.getElementById('btnMainStop');
+
+      const banner = document.getElementById('bannerSweepProgress');
+      const ipBadge = document.getElementById('scanCurrentIpBadge');
+      const probedEl = document.getElementById('scanProbedCount');
+      const foundEl = document.getElementById('scanFoundCount');
+      const pctBadge = document.getElementById('scanPercentBadge');
+      const bar = document.getElementById('scanProgressBar');
+
+      if (banner) banner.classList.remove('hidden');
+
+      if (currentIp && ipBadge) ipBadge.innerText = currentIp;
+      if (probed !== undefined && total !== undefined && probedEl) {
+        probedEl.innerText = `${probed} / ${total} hosts`;
+      }
+      if (found !== undefined && foundEl) {
+        foundEl.innerText = `${found} active found`;
+      }
+      const p = Math.max(0, Math.min(100, percent || 0));
+      if (pctBadge) pctBadge.innerText = `${p}%`;
+      if (bar) bar.style.width = `${p}%`;
+
+      if (lbl) {
+        if (currentIp) {
+          lbl.innerText = `ARP Sweep: Probing ${currentIp} (${p}%)`;
+        } else {
+          lbl.innerText = text || "Scanning...";
+        }
+      }
+
+      if (state.isScanning) {
+        if (dot) dot.className = "w-2 h-2 rounded-full bg-primary animate-ping";
+        if (btnMain) btnMain.innerText = "Scanning...";
+        if (btnInstant) btnInstant.innerText = "Scanning...";
+        if (btnStop) btnStop.disabled = false;
+      }
+    }
+
+    function completeScanStatus() {
+      const dot = document.getElementById('scanStatusDot');
+      const lbl = document.getElementById('scanStatusText');
+      const btnMain = document.getElementById('lblScanAction');
+      const btnInstant = document.getElementById('instantScanText');
+      const btnStop = document.getElementById('btnMainStop');
+
+      const ipBadge = document.getElementById('scanCurrentIpBadge');
+      const pctBadge = document.getElementById('scanPercentBadge');
+      const bar = document.getElementById('scanProgressBar');
+      const banner = document.getElementById('bannerSweepProgress');
+
+      if (ipBadge) ipBadge.innerText = "Completed";
+      if (pctBadge) pctBadge.innerText = "100%";
+      if (bar) bar.style.width = "100%";
+
+      if (dot) dot.className = "w-2 h-2 rounded-full bg-secondary";
+      if (lbl) lbl.innerText = "Quick ARP & ICMP Sweep: 100% Idle (Ready)";
+      if (btnMain) btnMain.innerText = "Scan Network";
+      if (btnInstant) btnInstant.innerText = "Instant Scan";
+      if (btnStop) btnStop.disabled = true;
+
+      setTimeout(() => {
+        if (!state.isScanning && banner) {
+          banner.classList.add('hidden');
+        }
+      }, 2800);
+    }
+
+    function updateCountdown(seconds, isContinuous) {
+      const lbl = document.getElementById('lblNextScan');
+      if (!lbl) return;
+      if (isContinuous || state.settings?.continuous) {
+        lbl.innerText = "Continuous Loop";
+        return;
+      }
+      if (seconds <= 0) {
+        lbl.innerText = "Scanning now...";
+      } else {
+        const m = Math.floor(seconds / 60);
+        const s = seconds % 60;
+        lbl.innerText = `Next in ${String(m).padStart(2, '0')}:${String(s).padStart(2, '0')}`;
+      }
+    }
+
+    function updateTelemetryDisplay() {
+      const t = state.telemetry;
+      if (!t) return;
+
+      if (t.Subnet) document.getElementById('titleSubnet').innerText = `Subnet: ${t.Subnet} Online`;
+      if (t.ConnectionType) document.getElementById('titleAdapter').innerText = `${t.ConnectionType} (${t.LinkSpeed || 'Connected'})`;
+      if (t.AdapterName) document.getElementById('sideNicName').innerText = `NIC: ${t.AdapterName}`;
+      if (t.AdapterDescription) document.getElementById('sideNicFull').innerText = t.AdapterDescription;
+      if (t.SignalStrength) document.getElementById('sideSignal').innerText = `${t.SignalDbm || ''} (${t.SignalStrength})`;
+      if (t.GatewayIp) document.getElementById('sideGateway').innerText = t.GatewayIp;
+
+      if (t.Subnet) document.getElementById('footSweep').innerText = `Sweep: ${t.Subnet}`;
+      if (t.AdapterDescription) document.getElementById('footInterface').innerText = `Interface: ${t.AdapterDescription}`;
+      if (t.DownloadSpeedStr) document.getElementById('footDown').innerText = t.DownloadSpeedStr;
+      if (t.UploadSpeedStr) document.getElementById('footUp').innerText = t.UploadSpeedStr;
+      if (t.PingLatencyMs !== undefined) document.getElementById('footLatency').innerText = `Sync Latency: ${t.PingLatencyMs}ms`;
+    }
+
+    function updateUiState() {
+      // 1. Telemetry
+      updateTelemetryDisplay();
+
+      // 2. Counts & KPI
+      const total = state.devices.length;
+      const online = state.devices.filter(d => d.Active).length;
+      const known = state.devices.filter(d => d.Known).length;
+      const unknown = state.devices.filter(d => !d.Known).length;
+      const blocked = state.devices.filter(d => d.Block).length;
+
+      document.getElementById('kpiTotal').innerText = total;
+      document.getElementById('kpiOnline').innerText = online;
+      document.getElementById('kpiKnown').innerText = known;
+      document.getElementById('kpiUnknown').innerText = unknown;
+      document.getElementById('kpiBlocked').innerText = blocked;
+
+      document.getElementById('count_all').innerText = total;
+      document.getElementById('count_online').innerText = online;
+      document.getElementById('count_intruder').innerText = unknown;
+      document.getElementById('count_blocked').innerText = blocked;
+
+      document.getElementById('badgeTotalDevices').innerText = total;
+      document.getElementById('badgeIntruders').innerText = unknown;
+      document.getElementById('footThreats').innerText = `${unknown} Threat${unknown === 1 ? '' : 's'} Active`;
+
+      // 3. Intruder Banner
+      const banner = document.getElementById('bannerIntrusion');
+      if (unknown > 0) {
+        banner.classList.remove('hidden');
+        const intruderNames = state.devices.filter(d => !d.Known).map(d => `"${getDeviceDisplayNames(d).primary}"`).slice(0, 3).join(', ');
+        document.getElementById('bannerTitle').innerText = `${unknown} Unknown Device${unknown === 1 ? '' : 's'} Detected on Subnet!`;
+        document.getElementById('bannerDesc').innerText = `Device ${intruderNames} joined without authorization.`;
+      } else {
+        banner.classList.add('hidden');
+      }
+
+      // 4. Auto-scan, Continuous, and Live Devices checkboxes
+      if (state.settings) {
+        document.getElementById('chkAutoScan').checked = !!state.settings.autoscan;
+        const isContinuous = !!state.settings.continuous;
+        const chkCont = document.getElementById('chkContinuous');
+        if (chkCont) chkCont.checked = isContinuous;
+        const chkContTb = document.getElementById('chkContinuousToolbar');
+        if (chkContTb) chkContTb.checked = isContinuous;
+
+        if (isContinuous) {
+          const lbl = document.getElementById('lblNextScan');
+          if (lbl) lbl.innerText = "Continuous Loop";
+        }
+
+        if (state.settings.filt_connected !== undefined) {
+          const chkLive = document.getElementById('chkOnlyLiveDevices');
+          if (chkLive) {
+            chkLive.checked = !!state.settings.filt_connected;
+            updateLiveBoxVisuals(chkLive.checked);
+          }
+        }
+      }
+      const badgeLive = document.getElementById('badgeLiveCount');
+      if (badgeLive) badgeLive.innerText = `${online}`;
+
+      // 5. Render Table
+      renderTable();
+    }
+
+    function toggleContinuousScan(checked) {
+      if (!state.settings) state.settings = {};
+      state.settings.continuous = checked;
+      const chkCont = document.getElementById('chkContinuous');
+      if (chkCont) chkCont.checked = checked;
+      const chkContTb = document.getElementById('chkContinuousToolbar');
+      if (chkContTb) chkContTb.checked = checked;
+
+      const lbl = document.getElementById('lblNextScan');
+      if (lbl) lbl.innerText = checked ? "Continuous Loop" : "Next in 05:00";
+
+      sendAction('continuous_toggle', { enabled: checked });
+    }
+
+    function updateLiveBoxVisuals(checked) {
+      const container = document.getElementById('lblOnlyLiveContainer');
+      if (container) {
+        if (checked) {
+          container.classList.add('bg-secondary/15', 'border-secondary/50', 'text-secondary');
+          container.classList.remove('bg-surface-card', 'border-outline-dim', 'text-on-surface');
+        } else {
+          container.classList.remove('bg-secondary/15', 'border-secondary/50', 'text-secondary');
+          container.classList.add('bg-surface-card', 'border-outline-dim', 'text-on-surface');
+        }
+      }
+    }
+
+    function toggleOnlyLiveDevices(checked) {
+      if (!state.settings) state.settings = {};
+      state.settings.filt_connected = checked;
+      updateLiveBoxVisuals(checked);
+      sendAction('filt_connected_toggle', { enabled: checked });
+      renderTable();
+    }
+
+    function toggleOnlyLiveCard() {
+      const chk = document.getElementById('chkOnlyLiveDevices');
+      if (chk) {
+        chk.checked = !chk.checked;
+        toggleOnlyLiveDevices(chk.checked);
+      }
+    }
+
+    function filterBy(type) {
+      state.currentFilter = type;
+      document.querySelectorAll('.filter-btn').forEach(btn => {
+        btn.classList.remove('bg-primary/20', 'border-primary', 'text-primary');
+        btn.classList.add('bg-surface-card', 'border-outline-dim', 'text-on-surface');
+      });
+
+      const activeBtn = document.getElementById(`btnFilter_${type}`);
+      if (activeBtn) {
+        activeBtn.classList.remove('bg-surface-card', 'border-outline-dim', 'text-on-surface');
+        activeBtn.classList.add('bg-primary/20', 'border-primary', 'text-primary');
+      }
+
+      renderTable();
+    }
+
+    function applyFilters() {
+      renderTable();
+    }
+
+    // Helper: Determine friendly display name and subtitle for any device
+    function getDeviceDisplayNames(d) {
+      let primary = (d.ComputerName || '').trim();
+      let desc = (d.Description || '').trim();
+      if (desc.toUpperCase() === 'TYPE IN NAME') desc = '';
+
+      // If primary is empty or generic "UNKNOWN...", check description
+      if (!primary || primary.toLowerCase().startsWith('unknown')) {
+        if (desc && !desc.toLowerCase().startsWith('unknown')) {
+          primary = desc;
+        }
+      }
+
+      // If still empty or unknown, fallback to vendor or IP
+      if (!primary || primary.toLowerCase().startsWith('unknown')) {
+        if (d.Company && d.Company !== 'Generic' && !d.Company.toLowerCase().startsWith('unknown')) {
+          primary = `${d.Company} Device`;
+        } else {
+          primary = `Device (${d.LastIp || d.MacAddress})`;
+        }
+      }
+
+      // Subtitle
+      let sub = '';
+      if (desc && desc !== primary && desc.toUpperCase() !== 'TYPE IN NAME') {
+        sub = desc;
+      } else if (d.ComputerName && d.ComputerName !== primary && !d.ComputerName.toLowerCase().startsWith('unknown')) {
+        sub = d.ComputerName;
+      } else if (d.Company && d.Company !== 'Generic' && !d.Company.toLowerCase().startsWith('unknown')) {
+        sub = d.Company;
+      } else {
+        sub = d.LastIp || '';
+      }
+
+      return { primary, sub };
+    }
+
+    function renderTable() {
+      const tbody = document.getElementById('deviceTableBody');
+      const empty = document.getElementById('tableEmptyState');
+      const search = (document.getElementById('searchInput').value || '').toLowerCase().trim();
+
+      let list = state.devices.slice();
+
+      // Filter by live devices toggle box
+      const chkLive = document.getElementById('chkOnlyLiveDevices');
+      const onlyLive = chkLive ? chkLive.checked : (state.settings ? !!state.settings.filt_connected : false);
+      if (onlyLive || state.currentFilter === 'online') {
+        list = list.filter(d => d.Active);
+      }
+
+      // Filter by tab
+      if (state.currentFilter === 'intruder') {
+        list = list.filter(d => !d.Known);
+      } else if (state.currentFilter === 'blocked') {
+        list = list.filter(d => d.Block);
+      }
+
+      // Filter by search query
+      if (search) {
+        list = list.filter(d => {
+          const names = getDeviceDisplayNames(d);
+          return (
+            names.primary.toLowerCase().includes(search) ||
+            names.sub.toLowerCase().includes(search) ||
+            (d.LastIp || '').toLowerCase().includes(search) ||
+            (d.MacAddress || '').toLowerCase().includes(search) ||
+            (d.Company || '').toLowerCase().includes(search)
+          );
+        });
+      }
+
+      document.getElementById('tableVisibleCount').innerText = `${list.length} displayed`;
+
+      if (list.length === 0) {
+        tbody.innerHTML = '';
+        empty.classList.remove('hidden');
+        return;
+      }
+
+      empty.classList.add('hidden');
+      tbody.innerHTML = list.map(d => {
+        const isUnknown = !d.Known;
+        const isBlocked = !!d.Block;
+        const isOnline = !!d.Active;
+        const type = d.DeviceType || 'unknown';
+        const isSelected = state.selectedRows.has(d.DigiSig);
+        const names = getDeviceDisplayNames(d);
+
+        let statusPill = '';
+        if (isBlocked) {
+          statusPill = `<span class="px-2.5 py-0.5 rounded-full bg-danger/25 text-danger border border-danger/50 text-[11px] font-bold flex items-center gap-1.5 w-max"><span class="w-1.5 h-1.5 rounded-full bg-danger"></span>Blocked</span>`;
+        } else if (isUnknown) {
+          statusPill = `<span class="px-2.5 py-0.5 rounded-full bg-danger/30 text-danger border border-danger/60 text-[11px] font-extrabold animate-pulse flex items-center gap-1.5 w-max"><span class="w-1.5 h-1.5 rounded-full bg-danger"></span>Alert</span>`;
+        } else if (isOnline) {
+          statusPill = `<span class="px-2.5 py-0.5 rounded-full bg-secondary/20 text-secondary border border-secondary/40 text-[11px] font-bold flex items-center gap-1.5 w-max"><span class="w-1.5 h-1.5 rounded-full bg-secondary"></span>Online</span>`;
+        } else {
+          statusPill = `<span class="px-2.5 py-0.5 rounded-full bg-surface-high text-on-surface-variant border border-outline-dim/40 text-[11px] font-medium flex items-center gap-1.5 w-max"><span class="w-1.5 h-1.5 rounded-full bg-on-surface-variant/40"></span>Offline</span>`;
+        }
+
+        let trustBadge = '';
+        if (isUnknown) {
+          trustBadge = `<span class="px-2.5 py-0.5 rounded bg-danger/25 text-danger border border-danger/50 text-[11px] font-extrabold">INTRUDER</span>`;
+        } else {
+          trustBadge = `<span class="px-2.5 py-0.5 rounded bg-secondary/20 text-secondary border border-secondary/40 text-[11px] font-bold">Trusted</span>`;
+        }
+
+        let firewallBadge = '';
+        if (isBlocked) {
+          firewallBadge = `<span class="px-2.5 py-0.5 rounded bg-danger text-white border border-danger text-[11px] font-bold">BLOCKED</span>`;
+        } else if (isUnknown) {
+          firewallBadge = `<span class="px-2.5 py-0.5 rounded bg-warning/20 text-warning border border-warning/40 text-[11px] font-bold">Unfiltered</span>`;
+        } else {
+          firewallBadge = `<span class="px-2.5 py-0.5 rounded bg-secondary/15 text-secondary border border-secondary/30 text-[11px] font-semibold">Allowed</span>`;
+        }
+
+        return `
+          <tr onclick="onRowClick(event, '${d.DigiSig}')" ondblclick="openDeviceInspector('${d.DigiSig}')" class="hover:bg-surface-high/70 transition-colors cursor-pointer group border-b border-outline-dim/30 ${isSelected ? 'bg-primary/15' : ''}">
+            <td class="py-2.5 px-3" onclick="event.stopPropagation()">
+              <input type="checkbox" onchange="toggleSelectRow('${d.DigiSig}', this.checked)" ${isSelected ? 'checked' : ''} class="w-4 h-4 cursor-pointer rounded bg-surface-card border-outline-dim text-primary focus:ring-0">
+            </td>
+            <td class="py-2.5 px-3">${statusPill}</td>
+            <td class="py-2.5 px-3">
+              <div class="flex items-center gap-2.5">
+                <div class="w-7 h-7 rounded-md flex items-center justify-center bg-surface-high border border-outline-dim/40 flex-shrink-0">
+                  ${getDeviceIconSvg(type)}
+                </div>
+                <div class="flex flex-col min-w-0">
+                  <span class="font-sans font-bold text-[13px] text-on-surface group-hover:text-primary transition-colors truncate">${escapeHtml(names.primary)}</span>
+                  <span class="text-[11px] font-medium text-on-surface-variant truncate">${escapeHtml(names.sub)}</span>
+                </div>
+              </div>
+            </td>
+            <td class="py-2.5 px-3 text-primary font-mono font-bold text-[13px]">${escapeHtml(d.LastIp || '-')}</td>
+            <td class="py-2.5 px-3 text-on-surface font-mono font-bold text-xs tracking-wider">${escapeHtml(d.MacAddress || '-')}</td>
+            <td class="py-2.5 px-3 text-on-surface-variant font-sans font-semibold text-xs truncate max-w-[150px]">${escapeHtml(d.Company || 'Generic Hardware')}</td>
+            <td class="py-2.5 px-3 text-center">${trustBadge}</td>
+            <td class="py-2.5 px-3 text-center">${firewallBadge}</td>
+            <td class="py-2.5 px-3 text-right text-on-surface-variant text-[11px] font-mono font-medium">
+              ${escapeHtml(d.LastFound || 'Today')}
+            </td>
+            <td class="py-2.5 px-3 text-center" onclick="event.stopPropagation()">
+              <button onclick="deleteDeviceSingle('${escapeJs(d.DigiSig)}', '${escapeJs(names.primary)}')" class="p-1.5 rounded-lg text-on-surface-variant hover:text-danger hover:bg-danger/15 transition-all cursor-pointer" title="Delete device from network database">
+                <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 6h18"/><path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6"/><line x1="10" y1="11" x2="10" y2="17"/><line x1="14" y1="11" x2="14" y2="17"/></svg>
+              </button>
+            </td>
+          </tr>
+        `;
+      }).join('');
+
+      updateBatchToolbar();
+    }
+
+    function updateBatchToolbar() {
+      const count = state.selectedRows.size;
+      const countText = document.getElementById('batchSelectedCountText');
+      const btnDelete = document.getElementById('btnDeleteSelected');
+      const chkAll = document.getElementById('chkSelectAll');
+
+      if (countText) countText.innerText = `${count} selected`;
+      if (btnDelete) btnDelete.disabled = (count === 0);
+      if (chkAll && state.devices.length > 0) {
+        chkAll.checked = (count === state.devices.length);
+      }
+    }
+
+    function onRowClick(event, digisig) {
+      openDeviceInspector(digisig);
+    }
+
+    function toggleSelectRow(digisig, checked) {
+      if (checked) state.selectedRows.add(digisig);
+      else state.selectedRows.delete(digisig);
+      renderTable();
+    }
+
+    function toggleSelectAll(checked) {
+      if (checked) {
+        state.devices.forEach(d => state.selectedRows.add(d.DigiSig));
+      } else {
+        state.selectedRows.clear();
+      }
+      renderTable();
+    }
+
+    // Modal: Device Inspector
+    function openDeviceInspector(digisig) {
+      const d = state.devices.find(x => x.DigiSig === digisig);
+      if (!d) return;
+
+      state.inspectedDevice = JSON.parse(JSON.stringify(d));
+      const names = getDeviceDisplayNames(d);
+
+      const isUnknown = !d.Known;
+      const isBlocked = !!d.Block;
+
+      document.getElementById('modalDeviceHeaderTitle').innerText = `Device Profile: ${names.primary}`;
+      document.getElementById('modalInputName').value = names.primary;
+      document.getElementById('modalInputDesc').value = d.Description || '';
+      document.getElementById('modalValIp').innerText = d.LastIp || '-';
+      document.getElementById('modalValMac').innerText = d.MacAddress || '-';
+      document.getElementById('modalValVendor').innerText = d.Company || 'Generic Hardware Vendor';
+      document.getElementById('modalValSeen').innerText = `${d.FirstFound || 'Recorded'} / Active: ${d.LastFound || 'Now'}`;
+      document.getElementById('modalChkKnown').checked = !!d.Known;
+
+      // Header alert styling
+      const headerIcon = document.getElementById('modalHeaderIcon');
+      const title = document.getElementById('modalTitle');
+      if (isUnknown) {
+        headerIcon.className = "w-10 h-10 rounded-xl bg-danger/15 border border-danger/30 flex items-center justify-center text-danger";
+        title.innerText = "Threat Triage: Unknown Intruder Detected";
+      } else {
+        headerIcon.className = "w-10 h-10 rounded-xl bg-secondary/15 border border-secondary/30 flex items-center justify-center text-secondary";
+        title.innerText = "Device Profile & Security Policy Inspection";
+      }
+
+      // Firewall buttons
+      updateModalFirewallUi(isBlocked);
+
+      // Trigger port scan for this IP
+      document.getElementById('modalPortBadge').innerText = "Scanning Ports...";
+      sendAction('device_port_scan', { ip: d.LastIp });
+
+      document.getElementById('modalDeviceInspector').classList.remove('hidden');
+    }
+
+    function updateModalFirewallUi(isBlocked) {
+      const btnBlock = document.getElementById('modalBtnBlock');
+      const btnUnblock = document.getElementById('modalBtnUnblock');
+      const txtStatus = document.getElementById('modalFirewallStatusText');
+
+      if (isBlocked) {
+        btnBlock.classList.add('hidden');
+        btnUnblock.classList.remove('hidden');
+        txtStatus.innerText = "Active inbound/outbound netsh drop rules applied to this IP";
+        txtStatus.className = "text-[11px] font-mono text-danger font-semibold";
+      } else {
+        btnBlock.classList.remove('hidden');
+        btnUnblock.classList.add('hidden');
+        txtStatus.innerText = "No active firewall drop rules. Device can communicate normally.";
+        txtStatus.className = "text-[11px] font-mono text-on-surface-variant";
+      }
+    }
+
+    function modalToggleFirewall(block) {
+      if (!state.inspectedDevice) return;
+      state.inspectedDevice.Block = block;
+      updateModalFirewallUi(block);
+      sendAction('device_block', { digisig: state.inspectedDevice.DigiSig, block: block });
+    }
+
+    function runPortScanForModal() {
+      if (!state.inspectedDevice || !state.inspectedDevice.LastIp) return;
+      document.getElementById('modalPortBadge').innerText = "Scanning Ports...";
+      sendAction('device_port_scan', { ip: state.inspectedDevice.LastIp });
+    }
+
+    function renderPortCards(ports) {
+      const grid = document.getElementById('modalPortCardsGrid');
+      const badge = document.getElementById('modalPortBadge');
+
+      if (ports.length === 0) {
+        badge.innerText = "0 Open Ports (Filtered)";
+        badge.className = "px-2 py-0.5 rounded text-[10px] font-mono bg-surface-high text-on-surface-variant border border-outline-dim";
+        grid.innerHTML = `<div class="col-span-3 p-3 bg-surface-lowest text-center text-on-surface-variant rounded-lg border border-outline-dim">No open TCP ports detected (stealth / host firewall enabled).</div>`;
+        return;
+      }
+
+      badge.innerText = `${ports.length} Open Port${ports.length === 1 ? '' : 's'} Flagged`;
+      badge.className = ports.some(p => p.isCritical)
+        ? "px-2 py-0.5 rounded text-[10px] font-mono bg-danger text-white font-bold animate-pulse"
+        : "px-2 py-0.5 rounded text-[10px] font-mono bg-warning/20 text-warning border border-warning/30 font-semibold";
+
+      grid.innerHTML = ports.map(p => {
+        if (p.isCritical) {
+          return `
+            <div class="bg-danger/15 p-2.5 rounded-lg border border-danger/40 flex flex-col justify-between">
+              <div class="flex justify-between items-center">
+                <span class="font-mono font-bold text-danger">Port ${p.port}</span>
+                <span class="text-[9px] font-mono px-1.5 py-0.2 rounded bg-danger text-white font-bold">CRITICAL</span>
+              </div>
+              <span class="text-[11px] text-danger/90 mt-1">${escapeHtml(p.service)}</span>
+            </div>
+          `;
+        }
+        return `
+          <div class="bg-surface-lowest p-2.5 rounded-lg border border-outline-dim flex flex-col justify-between">
+            <div class="flex justify-between items-center">
+              <span class="font-mono font-bold text-on-surface">Port ${p.port}</span>
+              <span class="text-[9px] font-mono px-1.5 py-0.2 rounded bg-primary/20 text-primary font-semibold">${escapeHtml(p.name)}</span>
+            </div>
+            <span class="text-[11px] text-on-surface-variant mt-1">${escapeHtml(p.service)}</span>
+          </div>
+        `;
+      }).join('');
+    }
+
+    function closeDeviceInspector() {
+      document.getElementById('modalDeviceInspector').classList.add('hidden');
+      state.inspectedDevice = null;
+    }
+
+    function deleteCurrentInspectedDevice() {
+      if (!state.inspectedDevice) return;
+      const d = state.inspectedDevice;
+      const names = getDeviceDisplayNames(d);
+      if (confirm(`Are you sure you want to delete "${names.primary}" (${d.LastIp || d.MacAddress}) from the database?`)) {
+        sendAction('device_delete', { digisig: d.DigiSig });
+        closeDeviceInspector();
+      }
+    }
+
+    function deleteDeviceSingle(digisig, name) {
+      if (confirm(`Delete "${name || 'this device'}" from the database?`)) {
+        sendAction('device_delete', { digisig: digisig });
+      }
+    }
+
+    function deleteSelectedDevices() {
+      const selected = Array.from(state.selectedRows);
+      if (selected.length === 0) return;
+      if (confirm(`Permanently delete ${selected.length} selected device(s) from the database?`)) {
+        sendAction('devices_delete_batch', { digisigs: selected });
+        state.selectedRows.clear();
+        updateBatchToolbar();
+      }
+    }
+
+    function deleteAllIntruders() {
+      const intruderCount = state.devices.filter(d => !d.Known).length;
+      if (intruderCount === 0) {
+        alert("No intruders found to delete.");
+        return;
+      }
+      if (confirm(`Permanently delete all ${intruderCount} unknown/intruder device(s) from the database?`)) {
+        sendAction('delete_all_intruders');
+        state.selectedRows.clear();
+        updateBatchToolbar();
+      }
+    }
+
+    function saveDeviceInspector() {
+      if (!state.inspectedDevice) return;
+      const name = document.getElementById('modalInputName').value.trim();
+      const desc = document.getElementById('modalInputDesc').value.trim();
+      const isKnown = document.getElementById('modalChkKnown').checked;
+
+      sendAction('device_save', {
+        digisig: state.inspectedDevice.DigiSig,
+        name: name,
+        desc: desc,
+        isKnown: isKnown
+      });
+
+      closeDeviceInspector();
+    }
+
+    function applyDeviceFirewallAndSave() {
+      saveDeviceInspector();
+    }
+
+    // Modal: Settings
+    function openSettingsModal() {
+      const s = state.settings || {};
+      document.getElementById('setAutoscan').checked = !!s.autoscan;
+      document.getElementById('setFrequency').value = s.frequency || 5;
+      document.getElementById('setContinuous').checked = !!s.continuous;
+      document.getElementById('setIgnoreGw').checked = !!s.ignore_gateway;
+      document.getElementById('setFiltConnected').checked = !!s.filt_connected;
+      document.getElementById('setMinimize').checked = !!s.minimize_to_tray;
+      document.getElementById('setSound').checked = !!s.sound_alert;
+      document.getElementById('setPopup').checked = !!s.popup_alert;
+
+      document.getElementById('modalSettings').classList.remove('hidden');
+    }
+
+    function closeSettingsModal() {
+      document.getElementById('modalSettings').classList.add('hidden');
+    }
+
+    function saveSettingsModal() {
+      const isFiltConnected = document.getElementById('setFiltConnected').checked;
+      const s = {
+        autoscan: document.getElementById('setAutoscan').checked,
+        frequency: parseInt(document.getElementById('setFrequency').value) || 5,
+        continuous: document.getElementById('setContinuous').checked,
+        ignore_gateway: document.getElementById('setIgnoreGw').checked,
+        filt_connected: isFiltConnected,
+        minimize_to_tray: document.getElementById('setMinimize').checked,
+        sound_alert: document.getElementById('setSound').checked,
+        popup_alert: document.getElementById('setPopup').checked
+      };
+
+      const chkLive = document.getElementById('chkOnlyLiveDevices');
+      if (chkLive) {
+        chkLive.checked = isFiltConnected;
+        updateLiveBoxVisuals(isFiltConnected);
+      }
+
+      sendAction('settings_save', { settings: s });
+      closeSettingsModal();
+    }
+
+    // Modal: Subnet
+    function openSubnetModal() {
+      document.getElementById('inputSubnetRange').value = state.telemetry?.Subnet || '192.168.1.1-192.168.1.254';
+      document.getElementById('modalSubnet').classList.remove('hidden');
+    }
+
+    function closeSubnetModal() {
+      document.getElementById('modalSubnet').classList.add('hidden');
+    }
+
+    function saveSubnetModal() {
+      const range = document.getElementById('inputSubnetRange').value.trim();
+      if (range) {
+        sendAction('subnet_add', { subnet: range });
+      }
+      closeSubnetModal();
+    }
+
+    // Modal: Logs
+    function openLogsModal() {
+      document.getElementById('logsContent').innerText = "Loading logs...";
+      document.getElementById('modalLogs').classList.remove('hidden');
+      sendAction('get_logs');
+    }
+
+    function closeLogsModal() {
+      document.getElementById('modalLogs').classList.add('hidden');
+    }
+
+    // Modal: Import Backup (.wif / .json)
+    function openImportModal() {
+      document.getElementById('modalImport').classList.remove('hidden');
+      const msgBox = document.getElementById('importStatusMessage');
+      msgBox.classList.add('hidden');
+    }
+
+    function closeImportModal() {
+      document.getElementById('modalImport').classList.add('hidden');
+    }
+
+    function browseForImportFile() {
+      sendAction('import_data');
+    }
+
+    function executeImport() {
+      const path = document.getElementById('inputImportPath').value.trim();
+      const btn = document.getElementById('btnExecuteImport');
+      btn.disabled = true;
+      btn.innerHTML = `<svg class="w-4 h-4 animate-spin inline mr-1" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10" stroke="currentColor" stroke-opacity="0.25"/><path d="M12 2a10 10 0 0 1 10 10" stroke="currentColor"/></svg><span>Importing...</span>`;
+
+      sendAction('import_data', { path: path });
+    }
+
+    function handleImportResult(payload) {
+      const msgBox = document.getElementById('importStatusMessage');
+      const btn = document.getElementById('btnExecuteImport');
+      if (btn) {
+        btn.disabled = false;
+        btn.innerHTML = `<svg class="w-4 h-4 inline mr-1" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg><span>Import Now</span>`;
+      }
+
+      if (msgBox) {
+        msgBox.classList.remove('hidden');
+        if (payload.success) {
+          msgBox.className = 'p-3 rounded-lg text-[11px] bg-secondary/15 border border-secondary/30 text-secondary font-medium';
+          msgBox.innerText = payload.message;
+          setTimeout(() => {
+            closeImportModal();
+            setActiveTab('devices');
+          }, 2200);
+        } else {
+          msgBox.className = 'p-3 rounded-lg text-[11px] bg-danger/15 border border-danger/30 text-danger font-medium';
+          msgBox.innerText = payload.message;
+        }
+      }
+    }
+
+    function exportData() {
+      sendAction('export_data');
+    }
+
+    // Actions
+    function triggerScan() {
+      sendAction('scan_start');
+    }
+
+    function stopScan() {
+      state.isScanning = false;
+      completeScanStatus();
+      sendAction('scan_stop');
+    }
+
+    function toggleAutoScan(checked) {
+      sendAction('autoscan_toggle', { enabled: checked });
+    }
+
+    function autoBlockAllIntruders() {
+      if (confirm("Block all currently detected intruder devices from communicating through Windows Firewall?")) {
+        sendAction('auto_block_all');
+      }
+    }
+
+    function setActiveTab(tab) {
+      document.querySelectorAll('.nav-item').forEach(el => {
+        el.classList.remove('bg-surface-high', 'text-primary', 'border-l-2', 'border-primary');
+        el.classList.add('text-on-surface-variant');
+      });
+      const el = document.getElementById(`tab_${tab}`);
+      if (el) {
+        el.classList.add('bg-surface-high', 'text-primary', 'border-l-2', 'border-primary');
+        el.classList.remove('text-on-surface-variant');
+      }
+      if (tab === 'alerts') filterBy('intruder');
+      else if (tab === 'devices') filterBy('all');
+      else if (tab === 'dashboard') filterBy('all');
+    }
+
+    function copyToClipboard(text) {
+      if (navigator.clipboard) {
+        navigator.clipboard.writeText(text);
+      }
+    }
+
+    function escapeHtml(text) {
+      if (!text) return '';
+      return text.replace(/[&<>"']/g, function(m) {
+        return {
+          '&': '&amp;',
+          '<': '&lt;',
+          '>': '&gt;',
+          '"': '&quot;',
+          "'": '&#039;'
+        }[m];
+      });
+    }
+
+    function escapeJs(text) {
+      if (!text) return '';
+      return text.replace(/\\/g, '\\\\').replace(/'/g, "\\'").replace(/"/g, '\\"');
+    }
+
+    // Keyboard Shortcuts
+    document.addEventListener('keydown', e => {
+      if ((e.ctrlKey || e.metaKey) && e.key === 'f') {
+        e.preventDefault();
+        document.getElementById('searchInput').focus();
+      }
+      if (e.key === 'Escape') {
+        closeDeviceInspector();
+        closeSettingsModal();
+        closeSubnetModal();
+        closeLogsModal();
+        closeImportModal();
+      }
+    });
+
+    // Notify C# Host that DOM is ready
+    document.addEventListener('DOMContentLoaded', () => {
+      sendAction('init');
+    });
+  </script>
+</body>
+</html>

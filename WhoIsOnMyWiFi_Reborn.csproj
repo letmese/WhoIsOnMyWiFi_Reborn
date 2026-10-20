@@ -1,0 +1,35 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net8.0-windows</TargetFramework>
+    <UseWindowsForms>true</UseWindowsForms>
+    <Nullable>disable</Nullable>
+    <ImplicitUsings>disable</ImplicitUsings>
+    <ApplicationManifest>app.manifest</ApplicationManifest>
+    <AssemblyName>WhoIsOnMyWiFi_Reborn</AssemblyName>
+    <RootNamespace>WhoIsOnMyWiFi_Reborn</RootNamespace>
+    <AssemblyTitle>Who Is On My WiFi Reborn</AssemblyTitle>
+    <Product>Who Is On My WiFi Reborn</Product>
+    <Version>1.0.1</Version>
+    <!-- allows building this project on non-Windows machines (CI) -->
+    <EnableWindowsTargeting>true</EnableWindowsTargeting>
+    <NoWarn>MSB3277</NoWarn>
+    <ApplicationIcon>app.ico</ApplicationIcon>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.Data.Sqlite" Version="8.0.10" />
+    <PackageReference Include="Microsoft.Web.WebView2" Version="1.0.4258.31" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="wwwroot\**">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <Content Include="app.ico">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+
+</Project>
