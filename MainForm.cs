@@ -892,8 +892,9 @@ namespace WhoIsOnMyWiFi_Reborn
 
                 if (string.IsNullOrEmpty(filePath) || !File.Exists(filePath))
                 {
-                    string defaultDir = Directory.Exists(@"C:\Users\xbxga\Downloads")
-                        ? @"C:\Users\xbxga\Downloads"
+                    string downloadsDir = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.UserProfile), "Downloads");
+                    string defaultDir = Directory.Exists(downloadsDir)
+                        ? downloadsDir
                         : Environment.GetFolderPath(Environment.SpecialFolder.UserProfile);
 
                     using var dlg = new OpenFileDialog

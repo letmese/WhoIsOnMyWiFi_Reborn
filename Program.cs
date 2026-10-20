@@ -92,7 +92,12 @@ namespace WhoIsOnMyWiFi_Reborn
 
             if (args != null && args.Length > 0 && args[0] == "--import-file")
             {
-                string filePath = args.Length > 1 ? args[1] : @"C:\Users\xbxga\Downloads\backup.wif";
+                if (args.Length <= 1)
+                {
+                    Console.WriteLine("Usage: WhoIsOnMyWiFi_Reborn.exe --import-file <path-to-backup.wif>");
+                    return;
+                }
+                string filePath = args[1];
                 var db = new Database();
                 db.Initialize();
                 var res = LegacyImporter.ImportFile(filePath, db, true);
