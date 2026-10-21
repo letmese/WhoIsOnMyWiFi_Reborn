@@ -19,6 +19,20 @@
 
 ---
 
+## 🖥️ Desktop Application Preview (Windows .NET 8 App)
+
+<div align="center">
+  <img src="screenshots/reborn_clean.png" width="850" alt="WhoIsOnMyWiFi Reborn Desktop UI & Intruder Protection" />
+</div>
+
+<br/>
+
+<div align="center">
+  <img src="screenshots/reborn_raw.png" width="750" alt="Real-Time Network Device Sweep & Port Inspection" />
+</div>
+
+---
+
 ## 📱 Mobile Companion App Preview (Live Firebase Test Lab Pixel 5 Screenshots)
 
 <div align="center">
